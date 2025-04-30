@@ -1,59 +1,74 @@
-'use client';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const Hero = () => {
+export default function Hero() {
   return (
-    <section className="relative w-full min-h-[80vh] flex items-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Left column with text content */}
-          <div className="flex-1 text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              A crypto trading simulator
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8">
-              using virtual assets on Starknet
-            </p>
-            <a
-              href="/signup"
-              className="inline-block bg-[#16a34a] hover:bg-[#15803d] text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
-              aria-label="Get started with SwapTrade"
+    <section 
+      aria-label="Hero section"
+      className="container mx-auto px-4 py-12 sm:py-16 md:py-20 lg:py-24 flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12"
+    >
+      <div className="flex-1 text-center md:text-left space-y-6">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+          A crypto trading simulator
+        </h1>
+        <p className="text-lg sm:text-xl max-w-2xl">
+          Experience risk-free crypto trading using virtual assets on Starknet. Perfect for learning and strategy testing.
+        </p>
+        <div className="pt-4">
+          <Link 
+            href="/signup"
+            className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-[#16a34a] hover:bg-[#15803d] rounded-lg transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#16a34a]"
+            role="button"
+            aria-label="Get started with SwapTrade"
+          >
+            Get Started
+          </Link>
+        </div>
+      </div>
+      <div className="flex-1 flex justify-center md:justify-end">
+        <div className="relative w-full max-w-lg aspect-square">
+          <svg
+            className="w-full h-full text-[#16a34a]/10"
+            viewBox="0 0 200 200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="currentColor"
+              d="M100 0C155.228 0 200 44.772 200 100C200 155.228 155.228 200 100 200C44.772 200 0 155.228 0 100C0 44.772 44.772 0 100 0ZM100 20C55.817 20 20 55.817 20 100C20 144.183 55.817 180 100 180C144.183 180 180 144.183 180 100C180 55.817 144.183 20 100 20ZM100 40C133.137 40 160 66.863 160 100C160 133.137 133.137 160 100 160C66.863 160 40 133.137 40 100C40 66.863 66.863 40 100 40Z"
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <svg
+              className="w-3/4 h-3/4 text-[#16a34a]"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Get Started
-            </a>
-          </div>
-
-          {/* Right column with illustration */}
-          <div className="flex-1 flex justify-center lg:justify-end">
-            <div className="w-full max-w-lg" role="img" aria-label="Trading illustration">
-              <svg
-                className="w-full h-auto"
-                viewBox="0 0 400 400"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="400" height="400" fill="#f3f4f6" rx="8" />
-                <path
-                  d="M200 100L300 250H100L200 100Z"
-                  fill="#16a34a"
-                  opacity="0.2"
-                />
-                <path
-                  d="M200 150L275 275H125L200 150Z"
-                  fill="#16a34a"
-                  opacity="0.4"
-                />
-                <path
-                  d="M200 200L250 300H150L200 200Z"
-                  fill="#16a34a"
-                  opacity="0.6"
-                />
-              </svg>
-            </div>
+              <path
+                d="M12 2L2 7L12 12L22 7L12 2Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M2 17L12 22L22 17"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M2 12L12 17L22 12"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
