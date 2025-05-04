@@ -6,6 +6,12 @@
   --primary: #16a34a;
 }
 
+body.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #4ade80;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -13,16 +19,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Removing dark mode preference */
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}  */
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav {
+  transition: background-color 0.3s ease;
+}
+
+button {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
