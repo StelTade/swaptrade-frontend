@@ -5,10 +5,10 @@ import { useTheme } from "./context/ThemeContext";
 import { BsSun, BsMoon } from "react-icons/bs";
 
 interface NavbarProps {
-  currentPath: string;
+  currentPath?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ currentPath }) => {
+const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useTheme();
 
