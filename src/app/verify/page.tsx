@@ -5,11 +5,12 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useEmailVerification } from '@/hooks/useEmailVerification';
 import VerificationStatus from '@/components/verification/VerificationStatus';
+import ReferralLink from '@/components/referral/ReferralLink';
 
 function VerifyPageContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  const { isLoading, isVerified, error, verifyEmail } = useEmailVerification();
+  const { isLoading, isVerified, error, verifyEmail, user } = useEmailVerification();
 
   useEffect(() => {
     if (token && !isLoading && !isVerified && !error) {
@@ -80,11 +81,16 @@ function VerifyPageContent() {
           )}
 
           {isVerified && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <VerificationStatus
                 status="verified"
                 message="Your email has been verified successfully! You're now on the waitlist."
               />
+
+              {user?.referralCode && (
+                <ReferralLink referralCode={user.referralCode} />
+              )}
+
               <Link
                 href="/"
                 className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#16a34a] hover:bg-[#15803d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#16a34a]"
