@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 interface WaitlistFormData {
   email: string;
@@ -15,7 +16,17 @@ interface FormErrors {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
+
 export default function WaitlistForm() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState<WaitlistFormData>({
     email: '',
     name: '',
@@ -24,6 +35,89 @@ export default function WaitlistForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const captchaContainerRef = useRef<HTMLDivElement | null>(null);
+  const captchaWidgetIdRef = useRef<string | null>(null);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/csrf', { cache: 'no-store' })
+      .then(async (res) => {
+        if (!res.ok) throw new Error('csrf');
+        const data = (await res.json().catch(() => null)) as { token?: string } | null;
+        if (!data?.token) throw new Error('csrf');
+        if (!cancelled) setCsrfToken(data.token);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setErrors((prev) => ({ ...prev, submit: 'Security token unavailable. Please refresh.' }));
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!turnstileSiteKey) return;
+    if (!captchaContainerRef.current) return;
+
+    setCaptchaToken(null);
+    setCaptchaError(null);
+
+    const scriptId = 'turnstile-script';
+    if (!document.getElementById(scriptId)) {
+      const s = document.createElement('script');
+      s.id = scriptId;
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+
+    const render = () => {
+      if (!captchaContainerRef.current) return;
+      if (!window.turnstile?.render) return;
+      if (captchaWidgetIdRef.current && window.turnstile?.remove) {
+        window.turnstile.remove(captchaWidgetIdRef.current);
+      }
+
+      const widgetId = window.turnstile.render(captchaContainerRef.current, {
+        sitekey: turnstileSiteKey,
+        callback: (token: unknown) => {
+          if (typeof token === 'string') setCaptchaToken(token);
+        },
+        'expired-callback': () => {
+          setCaptchaToken(null);
+          setCaptchaError('Captcha expired. Please try again.');
+        },
+        'error-callback': () => {
+          setCaptchaToken(null);
+          setCaptchaError('Captcha error. Please try again.');
+        },
+      });
+      captchaWidgetIdRef.current = widgetId;
+    };
+
+    const interval = window.setInterval(() => {
+      if (window.turnstile?.render) {
+        window.clearInterval(interval);
+        render();
+      }
+    }, 100);
+
+    return () => {
+      window.clearInterval(interval);
+      if (captchaWidgetIdRef.current && window.turnstile?.remove) {
+        window.turnstile.remove(captchaWidgetIdRef.current);
+      }
+      captchaWidgetIdRef.current = null;
+    };
+  }, [turnstileSiteKey]);
 
   const validateEmail = useCallback((email: string): boolean => {
     return EMAIL_REGEX.test(email);
@@ -87,19 +181,34 @@ export default function WaitlistForm() {
         return;
       }
 
+      if (!csrfToken) {
+        setErrors({ submit: 'Security token missing. Please refresh and try again.' });
+        return;
+      }
+      if (turnstileSiteKey && !captchaToken) {
+        setCaptchaError('Please complete the captcha.');
+        return;
+      }
+
       setIsLoading(true);
       setErrors({});
 
       try {
+        const referralCode =
+          searchParams.get('ref') || searchParams.get('referral') || undefined;
+
         // TODO: Replace with actual API endpoint from Issue 11
         const response = await fetch('/api/waitlist', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'x-csrf-token': csrfToken,
           },
           body: JSON.stringify({
             email: formData.email.trim(),
             name: formData.name.trim() || undefined,
+            referralCode,
+            captchaToken: captchaToken || undefined,
           }),
         });
 
@@ -121,7 +230,7 @@ export default function WaitlistForm() {
         setIsLoading(false);
       }
     },
-    [formData, validateField]
+    [captchaToken, csrfToken, formData, searchParams, turnstileSiteKey, validateField]
   );
 
   const handleReset = useCallback(() => {
@@ -245,6 +354,17 @@ export default function WaitlistForm() {
           aria-live="assertive"
         >
           <p className="text-sm text-red-600 dark:text-red-400">{errors.submit}</p>
+        </div>
+      )}
+
+      {turnstileSiteKey && (
+        <div className="space-y-2" aria-label="Captcha">
+          <div ref={captchaContainerRef} />
+          {captchaError && (
+            <p className="text-sm text-red-600 dark:text-red-400" role="alert">
+              {captchaError}
+            </p>
+          )}
         </div>
       )}
 
