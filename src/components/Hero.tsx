@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import WaitlistForm from './WaitlistForm';
 
 export default function Hero() {
   return (
@@ -14,15 +13,8 @@ export default function Hero() {
         <p className="text-lg sm:text-xl max-w-2xl">
           Experience risk-free crypto trading using virtual assets on Starknet. Perfect for learning and strategy testing.
         </p>
-        <div className="pt-4">
-          <Link 
-            href="/signup"
-            className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-[#16a34a] hover:bg-[#15803d] rounded-lg transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#16a34a]"
-            role="button"
-            aria-label="Get started with SwapTrade"
-          >
-            Get Started
-          </Link>
+        <div className="pt-4 flex flex-col items-center md:items-start">
+          <WaitlistForm />
         </div>
       </div>
       <div className="flex-1 flex justify-center md:justify-end">
