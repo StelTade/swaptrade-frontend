@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/context/ThemeContext";
+import EmotionRegistry from "@/components/context/EmotionRegistry";
 import { I18nProvider } from "@/i18n/context";
 import { ReduxProvider } from "@/components/context/ReduxProvider";
 
@@ -41,9 +42,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <I18nProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </I18nProvider>
+        <EmotionRegistry>
+          <I18nProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </I18nProvider>
+        </EmotionRegistry>
       </body>
     </html>
   );

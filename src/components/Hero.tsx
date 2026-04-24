@@ -1,19 +1,18 @@
+"use client";
+
 import dynamic from 'next/dynamic';
+import { useI18n } from '@/i18n/context';
+import OptimizedImage from './ui/OptimizedImage';
 
 const WaitlistForm = dynamic(() => import('./WaitlistForm'), {
   loading: () => <div className="w-full max-w-md h-32 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />,
   ssr: false
 });
-"use client";
-
-import WaitlistForm from './WaitlistForm';
-import { useI18n } from '@/i18n/context';
-import OptimizedImage from './ui/OptimizedImage';
 
 export default function Hero() {
   const { t } = useI18n();
   return (
-    <section 
+    <section
       aria-label="Hero section"
       className="container mx-auto px-4 py-12 sm:py-16 md:py-20 lg:py-24 flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12"
     >
