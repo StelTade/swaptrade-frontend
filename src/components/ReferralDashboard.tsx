@@ -1,16 +1,8 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-
-interface DashboardData {
-  userId: string;
-  points: number;
-  rank: number;
-  referralCode: string | null;
-  totalReferrals: number;
-  successfulReferrals: number;
-  referrals: Array<{ displayName: string; verified: boolean; joinedAt: number }>;
-}
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { fetchDashboard } from "@/store/referralSlice";
 
 function ShareButtons({ url }: { url: string }) {
   const text = encodeURIComponent("Join SwapTrade — the risk-free crypto trading simulator!");
@@ -48,28 +40,13 @@ function ShareButtons({ url }: { url: string }) {
 }
 
 export default function ReferralDashboard({ userId }: { userId: string }) {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const { data, loading, error } = useAppSelector((state) => state.referral);
   const [copied, setCopied] = useState(false);
 
-  const fetchData = useCallback(async () => {
-    try {
-      setError(null);
-      const res = await fetch(`/api/users/${userId}/dashboard`);
-      if (res.status === 403) throw new Error("Your account is not yet verified.");
-      if (!res.ok) throw new Error("Failed to load dashboard.");
-      setData(await res.json());
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  }, [userId]);
-
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    dispatch(fetchDashboard(userId));
+  }, [dispatch, userId]);
 
   const referralUrl = data?.referralCode
     ? `${typeof window !== "undefined" ? window.location.origin : ""}/?ref=${data.referralCode}`
