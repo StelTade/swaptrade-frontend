@@ -1,4 +1,9 @@
-import WaitlistForm from './WaitlistForm';
+import dynamic from 'next/dynamic';
+
+const WaitlistForm = dynamic(() => import('./WaitlistForm'), {
+  loading: () => <div className="w-full max-w-md h-32 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />,
+  ssr: false
+});
 
 export default function Hero() {
   return (

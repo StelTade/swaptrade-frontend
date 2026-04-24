@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "./context/ThemeContext";
-import { BsSun, BsMoon } from "react-icons/bs";
+import BsSun from "react-icons/bs/BsSun";
+import BsMoon from "react-icons/bs/BsMoon";
 
 interface NavbarProps {
   currentPath: string;
