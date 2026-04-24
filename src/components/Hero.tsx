@@ -8,6 +8,7 @@ const WaitlistForm = dynamic(() => import('./WaitlistForm'), {
 
 import WaitlistForm from './WaitlistForm';
 import { useI18n } from '@/i18n/context';
+import OptimizedImage from './ui/OptimizedImage';
 
 export default function Hero() {
   const { t } = useI18n();
@@ -28,47 +29,14 @@ export default function Hero() {
         </div>
       </div>
       <div className="flex-1 flex justify-center md:justify-end">
-        <div className="relative w-full max-w-lg aspect-square">
-          <svg
-            className="w-full h-full text-[#16a34a]/10"
-            viewBox="0 0 200 200"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill="currentColor"
-              d="M100 0C155.228 0 200 44.772 200 100C200 155.228 155.228 200 100 200C44.772 200 0 155.228 0 100C0 44.772 44.772 0 100 0ZM100 20C55.817 20 20 55.817 20 100C20 144.183 55.817 180 100 180C144.183 180 180 144.183 180 100C180 55.817 144.183 20 100 20ZM100 40C133.137 40 160 66.863 160 100C160 133.137 133.137 160 100 160C66.863 160 40 133.137 40 100C40 66.863 66.863 40 100 40Z"
-            />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <svg
-              className="w-3/4 h-3/4 text-[#16a34a]"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2L2 7L12 12L22 7L12 2Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 17L12 22L22 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 12L12 17L22 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+        <div className="relative w-full max-w-lg overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 shadow-2xl">
+          <OptimizedImage
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+            alt="Trading dashboard illustration"
+            width={1200}
+            height={900}
+            className="w-full h-auto object-cover"
+          />
         </div>
       </div>
     </section>

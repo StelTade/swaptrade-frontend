@@ -1,14 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable webpack bundle analyzer
-  webpack: (config, { isServer }) => {
+ webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Enable tree shaking
       config.optimization.usedExports = true;
       config.optimization.sideEffects = false;
-      
-      // Split chunks more aggressively
       config.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {
@@ -27,16 +23,14 @@ const nextConfig: NextConfig = {
           },
         },
       };
-      
-      // Add bundle analyzer when ANALYZE env var is set
       if (process.env.ANALYZE === 'true') {
         const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
         config.plugins.push(
           new BundleAnalyzerPlugin({
             analyzerMode: 'static',
             openAnalyzer: false,
-            reportFilename: isServer 
-              ? '../analyze/server.html' 
+            reportFilename: isServer
+              ? '../analyze/server.html'
               : '../analyze/client.html',
           })
         );
@@ -44,26 +38,20 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
-  
-  // Optimize images
+
   images: {
-    formats: ['image/webp', 'image/avif'],
-  },
-  
-  // Enable compression
-  compress: true,
-  
-  // Optimize fonts
-  experimental: {
-    fontLoaders: [
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    remotePatterns: [
       {
-        loader: 'next/font/google',
-        options: {
-          subsets: ['latin'],
-          display: 'swap',
-        },
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
     ],
+  },
+
+  compress: true,
   async headers() {
     return [
       {
