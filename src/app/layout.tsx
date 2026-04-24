@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/context/ThemeContext";
-import ServiceWorkerRegistration from "@/components/pwa/ServiceWorkerRegistration";
+import { ReduxProvider } from "@/components/context/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,8 +33,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ServiceWorkerRegistration />
-        <ThemeProvider>{children}</ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
