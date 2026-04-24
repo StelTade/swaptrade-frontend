@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useI18n } from "@/i18n/context";
 
 interface LeaderboardEntry {
   rank: number;
@@ -21,6 +22,7 @@ export default function Leaderboard() {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useI18n();
 
   const fetchLeaderboard = useCallback(async () => {
     try {
@@ -41,7 +43,7 @@ export default function Leaderboard() {
       );
       setEntries(ranked);
     } catch {
-      setError("Unable to load leaderboard. Please try again later.");
+      setError(t("leaderboard.error"));
     } finally {
       setLoading(false);
     }
@@ -59,38 +61,24 @@ export default function Leaderboard() {
       className="w-full max-w-2xl mx-auto px-4 py-8"
     >
       <h2 className="text-2xl font-bold text-center mb-6 text-[var(--foreground)]">
-        🏆 Top Referrers
+        {t("leaderboard.title")}
       </h2>
 
       {loading && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="space-y-3"
-        >
+        <div role="status" aria-live="polite" className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-12 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse"
-            />
+            <div key={i} className="h-12 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
           ))}
-          <span className="sr-only">Loading leaderboard…</span>
+          <span className="sr-only">{t("leaderboard.loading")}</span>
         </div>
       )}
 
       {error && (
-        <p
-          role="alert"
-          className="text-center text-red-500 py-4"
-        >
-          {error}
-        </p>
+        <p role="alert" className="text-center text-red-500 py-4">{error}</p>
       )}
 
       {!loading && !error && entries.length === 0 && (
-        <p className="text-center text-gray-500 py-4">
-          No entries yet. Be the first to refer a friend!
-        </p>
+        <p className="text-center text-gray-500 py-4">{t("leaderboard.empty")}</p>
       )}
 
       {!loading && !error && entries.length > 0 && (
@@ -115,10 +103,10 @@ export default function Leaderboard() {
               </div>
               <div className="text-right">
                 <span className="font-bold text-[var(--primary)]">
-                  {entry.points.toLocaleString()} pts
+                  {t("leaderboard.points", { points: entry.points.toLocaleString() })}
                 </span>
                 <span className="block text-xs text-gray-500">
-                  {entry.successfulReferrals} referral{entry.successfulReferrals !== 1 ? "s" : ""}
+                  {entry.successfulReferrals} {entry.successfulReferrals !== 1 ? t("leaderboard.referrals") : t("leaderboard.referral")}
                 </span>
               </div>
             </li>

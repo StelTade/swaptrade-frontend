@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "markets": "Märkte",
+    "portfolio": "Portfolio",
+    "about": "Über uns",
+    "signIn": "Anmelden",
+    "toggleDark": "Dunkelmodus umschalten",
+    "toggleMenu": "Navigationsmenü umschalten"
+  },
+  "hero": {
+    "title": "Ein Krypto-Trading-Simulator",
+    "subtitle": "Erlebe risikofreies Krypto-Trading mit virtuellen Assets auf Starknet. Perfekt zum Lernen und Testen von Strategien."
+  },
+  "waitlist": {
+    "emailLabel": "E-Mail-Adresse",
+    "emailRequired": "(erforderlich)",
+    "emailPlaceholder": "du@beispiel.de",
+    "emailRequiredError": "E-Mail-Adresse ist erforderlich",
+    "emailInvalidError": "Bitte gib eine gültige E-Mail-Adresse ein",
+    "nameLabel": "Name",
+    "nameOptional": "(optional)",
+    "namePlaceholder": "Max Mustermann",
+    "submitButton": "Warteliste beitreten",
+    "submitting": "Beitreten...",
+    "privacy": "Wir respektieren deine Privatsphäre. Jederzeit abmelden.",
+    "captchaLabel": "Captcha",
+    "captchaExpired": "Captcha abgelaufen. Bitte erneut versuchen.",
+    "captchaError": "Captcha-Fehler. Bitte erneut versuchen.",
+    "captchaRequired": "Bitte das Captcha ausfüllen.",
+    "csrfUnavailable": "Sicherheitstoken nicht verfügbar. Bitte aktualisieren.",
+    "csrfMissing": "Sicherheitstoken fehlt. Bitte aktualisieren und erneut versuchen.",
+    "successTitle": "Du bist auf der Liste!",
+    "successMessage": "Danke, dass du dich auf unsere Warteliste eingetragen hast. Wir benachrichtigen dich, wenn SwapTrade bereit ist.",
+    "joinAnother": "Mit einer anderen E-Mail beitreten",
+    "genericError": "Ein unerwarteter Fehler ist aufgetreten. Bitte erneut versuchen."
+  },
+  "leaderboard": {
+    "title": "🏆 Top-Empfehler",
+    "loading": "Rangliste wird geladen…",
+    "error": "Rangliste konnte nicht geladen werden. Bitte später erneut versuchen.",
+    "empty": "Noch keine Einträge. Sei der Erste, der einen Freund empfiehlt!",
+    "points": "{points} Pkt.",
+    "referral": "Empfehlung",
+    "referrals": "Empfehlungen",
+    "rank": "Rang {rank}"
+  },
+  "dashboard": {
+    "title": "Dein Empfehlungs-Dashboard",
+    "points": "Punkte",
+    "rank": "Rang",
+    "referrals": "Empfehlungen",
+    "referralLink": "Dein Empfehlungslink",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "copyAriaLabel": "Empfehlungslink in die Zwischenablage kopieren",
+    "referralLinkAriaLabel": "Dein Empfehlungslink",
+    "peopleReferred": "Personen, die du empfohlen hast ({count})",
+    "noReferrals": "Noch keine Empfehlungen. Teile deinen Link, um zu beginnen!",
+    "verified": "Verifiziert ✓",
+    "pending": "Ausstehend",
+    "loading": "Dashboard wird geladen…",
+    "notVerified": "Dein Konto ist noch nicht verifiziert.",
+    "loadError": "Dashboard konnte nicht geladen werden.",
+    "genericError": "Etwas ist schiefgelaufen.",
+    "shareTwitter": "Auf Twitter teilen",
+    "shareFacebook": "Auf Facebook teilen",
+    "shareWhatsApp": "Auf WhatsApp teilen",
+    "shareText": "Tritt SwapTrade bei — dem risikofreien Krypto-Trading-Simulator!"
+  },
+  "language": {
+    "label": "Sprache",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch",
+    "zh": "中文",
+    "ar": "العربية"
+  }
+}
