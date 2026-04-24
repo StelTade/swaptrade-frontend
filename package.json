@@ -19,6 +19,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
+    "recharts": "^2.8.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
