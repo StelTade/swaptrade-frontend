@@ -3,22 +3,25 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "./context/ThemeContext";
 import { BsSun, BsMoon } from "react-icons/bs";
+import { useI18n } from "@/i18n/context";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface NavbarProps {
-  currentPath: string;
+  currentPath?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ currentPath }) => {
+const Navbar: React.FC<NavbarProps> = ({ currentPath = "/" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const { t } = useI18n();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Markets", path: "/markets" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "About", path: "/about" },
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.markets"), path: "/markets" },
+    { name: t("nav.portfolio"), path: "/portfolio" },
+    { name: t("nav.about"), path: "/about" },
   ];
 
   return (
@@ -56,17 +59,18 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath }) => {
 
           {/* Sign In Button and Dark Mode Toggle (Desktop) */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
             <button
               onClick={() => (window.location.href = "/signin")}
               className="text-[var(--foreground)] border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium"
-              aria-label="Sign in to your account"
+              aria-label={t("nav.signIn")}
             >
-              Sign In
+              {t("nav.signIn")}
             </button>
             <button
               onClick={toggleDarkMode}
               className="text-[var(--foreground)] hover:text-[var(--primary)] focus:outline-none"
-              aria-label="Toggle dark mode"
+              aria-label={t("nav.toggleDark")}
             >
               {isDarkMode ? (
                 <BsSun className="h-6 w-6" />
@@ -82,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath }) => {
               onClick={toggleMenu}
               className="text-[var(--foreground)] hover:text-[var(--primary)] focus:outline-none"
               aria-expanded={isMenuOpen}
-              aria-label="Toggle navigation menu"
+              aria-label={t("nav.toggleMenu")}
             >
               {isMenuOpen ? (
                 <svg
@@ -119,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath }) => {
             <button
               onClick={toggleDarkMode}
               className="text-[var(--foreground)] hover:text-[var(--primary)] focus:outline-none ml-2"
-              aria-label="Toggle dark mode"
+              aria-label={t("nav.toggleDark")}
             >
               {isDarkMode ? (
                 <BsSun className="h-6 w-6" />
@@ -154,10 +158,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath }) => {
                 setIsMenuOpen(false);
               }}
               className="text-[var(--foreground)] border border-gray-300 hover:bg-gray-100 w-full text-left px-3 py-2 rounded-md text-base font-medium"
-              aria-label="Sign in to your account"
+              aria-label={t("nav.signIn")}
             >
-              Sign In
+              {t("nav.signIn")}
             </button>
+            <div className="px-3 py-2">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       )}

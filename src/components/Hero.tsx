@@ -1,6 +1,10 @@
+"use client";
+
 import WaitlistForm from './WaitlistForm';
+import { useI18n } from '@/i18n/context';
 
 export default function Hero() {
+  const { t } = useI18n();
   return (
     <section 
       aria-label="Hero section"
@@ -8,10 +12,10 @@ export default function Hero() {
     >
       <div className="flex-1 text-center md:text-left space-y-6">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-          A crypto trading simulator
+          {t("hero.title")}
         </h1>
         <p className="text-lg sm:text-xl max-w-2xl">
-          Experience risk-free crypto trading using virtual assets on Starknet. Perfect for learning and strategy testing.
+          {t("hero.subtitle")}
         </p>
         <div className="pt-4 flex flex-col items-center md:items-start">
           <WaitlistForm />

@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "首页",
+    "markets": "市场",
+    "portfolio": "投资组合",
+    "about": "关于",
+    "signIn": "登录",
+    "toggleDark": "切换深色模式",
+    "toggleMenu": "切换导航菜单"
+  },
+  "hero": {
+    "title": "加密货币交易模拟器",
+    "subtitle": "在 Starknet 上使用虚拟资产体验无风险的加密货币交易。非常适合学习和策略测试。"
+  },
+  "waitlist": {
+    "emailLabel": "电子邮件地址",
+    "emailRequired": "（必填）",
+    "emailPlaceholder": "you@example.com",
+    "emailRequiredError": "电子邮件地址为必填项",
+    "emailInvalidError": "请输入有效的电子邮件地址",
+    "nameLabel": "姓名",
+    "nameOptional": "（可选）",
+    "namePlaceholder": "张三",
+    "submitButton": "加入等待列表",
+    "submitting": "加入中...",
+    "privacy": "我们尊重您的隐私。随时取消订阅。",
+    "captchaLabel": "验证码",
+    "captchaExpired": "验证码已过期，请重试。",
+    "captchaError": "验证码错误，请重试。",
+    "captchaRequired": "请完成验证码。",
+    "csrfUnavailable": "安全令牌不可用，请刷新页面。",
+    "csrfMissing": "安全令牌缺失，请刷新页面后重试。",
+    "successTitle": "您已加入列表！",
+    "successMessage": "感谢您加入我们的等待列表。SwapTrade 准备就绪后我们将通知您。",
+    "joinAnother": "使用其他邮箱加入",
+    "genericError": "发生意外错误，请重试。"
+  },
+  "leaderboard": {
+    "title": "🏆 推荐排行榜",
+    "loading": "正在加载排行榜…",
+    "error": "无法加载排行榜，请稍后重试。",
+    "empty": "暂无记录，成为第一个推荐朋友的人吧！",
+    "points": "{points} 分",
+    "referral": "次推荐",
+    "referrals": "次推荐",
+    "rank": "第 {rank} 名"
+  },
+  "dashboard": {
+    "title": "您的推荐仪表板",
+    "points": "积分",
+    "rank": "排名",
+    "referrals": "推荐",
+    "referralLink": "您的推荐链接",
+    "copy": "复制",
+    "copied": "已复制！",
+    "copyAriaLabel": "将推荐链接复制到剪贴板",
+    "referralLinkAriaLabel": "您的推荐链接",
+    "peopleReferred": "您推荐的人（{count}）",
+    "noReferrals": "暂无推荐，分享您的链接开始吧！",
+    "verified": "已验证 ✓",
+    "pending": "待处理",
+    "loading": "正在加载仪表板…",
+    "notVerified": "您的账户尚未验证。",
+    "loadError": "加载仪表板失败。",
+    "genericError": "出现错误。",
+    "shareTwitter": "分享到 Twitter",
+    "shareFacebook": "分享到 Facebook",
+    "shareWhatsApp": "分享到 WhatsApp",
+    "shareText": "加入 SwapTrade — 无风险加密货币交易模拟器！"
+  },
+  "language": {
+    "label": "语言",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch",
+    "zh": "中文",
+    "ar": "العربية"
+  }
+}

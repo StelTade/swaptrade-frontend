@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "markets": "الأسواق",
+    "portfolio": "المحفظة",
+    "about": "حول",
+    "signIn": "تسجيل الدخول",
+    "toggleDark": "تبديل الوضع الداكن",
+    "toggleMenu": "تبديل قائمة التنقل"
+  },
+  "hero": {
+    "title": "محاكي تداول العملات المشفرة",
+    "subtitle": "جرّب تداول العملات المشفرة بدون مخاطر باستخدام أصول افتراضية على Starknet. مثالي للتعلم واختبار الاستراتيجيات."
+  },
+  "waitlist": {
+    "emailLabel": "عنوان البريد الإلكتروني",
+    "emailRequired": "(مطلوب)",
+    "emailPlaceholder": "you@example.com",
+    "emailRequiredError": "عنوان البريد الإلكتروني مطلوب",
+    "emailInvalidError": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "nameLabel": "الاسم",
+    "nameOptional": "(اختياري)",
+    "namePlaceholder": "محمد أحمد",
+    "submitButton": "انضم إلى قائمة الانتظار",
+    "submitting": "جارٍ الانضمام...",
+    "privacy": "نحن نحترم خصوصيتك. يمكنك إلغاء الاشتراك في أي وقت.",
+    "captchaLabel": "التحقق",
+    "captchaExpired": "انتهت صلاحية التحقق. يرجى المحاولة مرة أخرى.",
+    "captchaError": "خطأ في التحقق. يرجى المحاولة مرة أخرى.",
+    "captchaRequired": "يرجى إكمال التحقق.",
+    "csrfUnavailable": "رمز الأمان غير متاح. يرجى تحديث الصفحة.",
+    "csrfMissing": "رمز الأمان مفقود. يرجى تحديث الصفحة والمحاولة مرة أخرى.",
+    "successTitle": "أنت في القائمة!",
+    "successMessage": "شكراً لانضمامك إلى قائمة الانتظار. سنخطرك عندما يكون SwapTrade جاهزاً.",
+    "joinAnother": "الانضمام ببريد إلكتروني آخر",
+    "genericError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+  },
+  "leaderboard": {
+    "title": "🏆 أفضل المُحيلين",
+    "loading": "جارٍ تحميل لوحة المتصدرين…",
+    "error": "تعذّر تحميل لوحة المتصدرين. يرجى المحاولة لاحقاً.",
+    "empty": "لا توجد إدخالات بعد. كن أول من يُحيل صديقاً!",
+    "points": "{points} نقطة",
+    "referral": "إحالة",
+    "referrals": "إحالات",
+    "rank": "المرتبة {rank}"
+  },
+  "dashboard": {
+    "title": "لوحة الإحالات الخاصة بك",
+    "points": "النقاط",
+    "rank": "الترتيب",
+    "referrals": "الإحالات",
+    "referralLink": "رابط الإحالة الخاص بك",
+    "copy": "نسخ",
+    "copied": "تم النسخ!",
+    "copyAriaLabel": "نسخ رابط الإحالة إلى الحافظة",
+    "referralLinkAriaLabel": "رابط الإحالة الخاص بك",
+    "peopleReferred": "الأشخاص الذين أحلتهم ({count})",
+    "noReferrals": "لا توجد إحالات بعد. شارك رابطك للبدء!",
+    "verified": "تم التحقق ✓",
+    "pending": "قيد الانتظار",
+    "loading": "جارٍ تحميل لوحة التحكم…",
+    "notVerified": "لم يتم التحقق من حسابك بعد.",
+    "loadError": "فشل تحميل لوحة التحكم.",
+    "genericError": "حدث خطأ ما.",
+    "shareTwitter": "مشاركة على تويتر",
+    "shareFacebook": "مشاركة على فيسبوك",
+    "shareWhatsApp": "مشاركة على واتساب",
+    "shareText": "انضم إلى SwapTrade — محاكي تداول العملات المشفرة بدون مخاطر!"
+  },
+  "language": {
+    "label": "اللغة",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch",
+    "zh": "中文",
+    "ar": "العربية"
+  }
+}
