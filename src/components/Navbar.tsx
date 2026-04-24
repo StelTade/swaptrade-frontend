@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "./context/ThemeContext";
+import BsSun from "react-icons/bs/BsSun";
+import BsMoon from "react-icons/bs/BsMoon";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useI18n } from "@/i18n/context";
 import LanguageSwitcher from "./LanguageSwitcher";
