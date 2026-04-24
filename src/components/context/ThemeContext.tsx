@@ -1,5 +1,12 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
+import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 
 interface ThemeContextType {
   isDarkMode: boolean;
@@ -13,13 +20,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Load theme from localStorage on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       setIsDarkMode(savedTheme === "dark");
     } else {
-      // Optional: Use system preference as default
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
@@ -27,7 +32,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  // Update body class and localStorage when isDarkMode changes
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add("dark");
@@ -42,14 +46,47 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsDarkMode((prev) => !prev);
   };
 
+  const muiTheme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: isDarkMode ? "dark" : "light",
+          primary: {
+            main: isDarkMode ? "#4ade80" : "#16a34a",
+            contrastText: "#ffffff",
+          },
+          background: {
+            default: isDarkMode ? "#0a0a0a" : "#ffffff",
+            paper: isDarkMode ? "#111111" : "#f9fafb",
+          },
+          text: {
+            primary: isDarkMode ? "#ededed" : "#000000",
+            secondary: isDarkMode ? "#a1a1aa" : "#52525b",
+          },
+        },
+        transitions: {
+          duration: {
+            standard: 300,
+          },
+        },
+        components: {
+          MuiButtonBase: {
+            defaultProps: {
+              disableRipple: false,
+            },
+          },
+        },
+      }),
+    [isDarkMode]
+  );
+
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      {children}
+      <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
-// Custom hook to use the theme context
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {

@@ -17,7 +17,6 @@ const Leaderboard = dynamic(() => import('@/components/Leaderboard'), {
   ),
   ssr: false
 });
-import Leaderboard from '@/components/Leaderboard';
 import AdvancedChart from '@/components/AdvancedChart';
 
 export default function Home() {
