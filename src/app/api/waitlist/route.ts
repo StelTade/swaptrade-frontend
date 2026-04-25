@@ -266,7 +266,11 @@ export async function POST(req: Request) {
     }
 
     try {
-      await sendWaitlistSignupEmail({ to: normalizedEmail, name });
+      await sendWaitlistSignupEmail({
+        to: normalizedEmail,
+        name,
+        verificationLink: undefined, // TODO: Add verification link when email service is set up
+      });
     } catch {}
 
     return NextResponse.json(result, { status: 200 });

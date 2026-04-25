@@ -217,6 +217,13 @@ export default function WaitlistForm() {
           throw new Error(data.message || 'Failed to join waitlist. Please try again.');
         }
 
+        const data = await response.json();
+        
+        // Store user ID for dashboard access
+        if (data.user?.id) {
+          localStorage.setItem('swaptrade_user_id', data.user.id);
+        }
+
         setIsSuccess(true);
         setFormData({ email: '', name: '' });
       } catch (error) {

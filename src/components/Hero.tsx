@@ -9,6 +9,11 @@ const WaitlistForm = dynamic(() => import('./WaitlistForm'), {
   ssr: false
 });
 
+const WaitlistStatus = dynamic(() => import('./WaitlistStatus'), {
+  loading: () => <div className="w-full max-w-md h-16 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />,
+  ssr: false
+});
+
 export default function Hero() {
   const { t } = useI18n();
   return (
@@ -24,6 +29,7 @@ export default function Hero() {
           {t("hero.subtitle")}
         </p>
         <div className="pt-4 flex flex-col items-center md:items-start">
+          <WaitlistStatus />
           <WaitlistForm />
         </div>
       </div>
