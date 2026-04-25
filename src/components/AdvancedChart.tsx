@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -103,8 +103,19 @@ function formatTooltipLabel(value: string): string {
   return `Date: ${value}`;
 }
 
-export default function AdvancedChart() {
+const chartMargin = { top: 12, right: 24, left: 0, bottom: 8 } as const;
+const tooltipStyle = {
+  backgroundColor: "#0f172a",
+  border: "1px solid #334155",
+  borderRadius: 12,
+  color: "#f8fafc",
+} as const;
+const legendStyle = { paddingBottom: 12 } as const;
+const axisTickStyle = { fill: "#475569" } as const;
+
+function AdvancedChart() {
   const chartData = useMemo(() => annotateIndicators(samplePriceData), []);
+  const labelFormatter = useCallback((value: string) => formatTooltipLabel(value), []);
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-10">
@@ -125,21 +136,16 @@ export default function AdvancedChart() {
 
         <div className="h-[440px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData} margin={{ top: 12, right: 24, left: 0, bottom: 8 }}>
+            <LineChart data={chartData} margin={chartMargin}>
               <CartesianGrid strokeDasharray="4 4" stroke="#e5e7eb" />
-              <XAxis dataKey="date" tick={{ fill: "#475569" }} tickLine={false} axisLine={false} minTickGap={24} />
-              <YAxis tick={{ fill: "#475569" }} tickLine={false} axisLine={false} width={60} />
+              <XAxis dataKey="date" tick={axisTickStyle} tickLine={false} axisLine={false} minTickGap={24} />
+              <YAxis tick={axisTickStyle} tickLine={false} axisLine={false} width={60} />
               <Tooltip
-                contentStyle={{
-                  backgroundColor: "#0f172a",
-                  border: "1px solid #334155",
-                  borderRadius: 12,
-                  color: "#f8fafc",
-                }}
-                labelFormatter={formatTooltipLabel}
+                contentStyle={tooltipStyle}
+                labelFormatter={labelFormatter}
                 formatter={(value: number | string, name: string) => [value, name]}
               />
-              <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{ paddingBottom: 12 }} />
+              <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={legendStyle} />
               <Area
                 type="monotone"
                 dataKey="upperBand"
@@ -166,6 +172,7 @@ export default function AdvancedChart() {
                 dot={false}
                 activeDot={{ r: 5, fill: "#2563eb" }}
                 name="Close"
+                isAnimationActive={false}
               />
               <Line
                 type="monotone"
@@ -211,3 +218,5 @@ export default function AdvancedChart() {
     </section>
   );
 }
+
+export default memo(AdvancedChart);
