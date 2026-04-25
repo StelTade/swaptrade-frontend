@@ -109,3 +109,156 @@ async function staleWhileRevalidate(request, cacheName) {
     new Response('Offline', { status: 503 })
   );
 }
+
+/**
+ * Push notification event handler
+ */
+self.addEventListener('push', (event) => {
+  if (!event.data) {
+    console.warn('Push event received but no data provided');
+    return;
+  }
+
+  let payload;
+  try {
+    payload = event.data.json();
+  } catch {
+    // If not JSON, treat text as notification body
+    payload = {
+      type: 'system',
+      title: 'SwapTrade Notification',
+      body: event.data.text(),
+    };
+  }
+
+  const {
+    type = 'system',
+    title = 'SwapTrade',
+    body = 'New notification',
+    icon = '/favicon.ico',
+    badge = '/badge.png',
+    tag = `notification-${Date.now()}`,
+    data = {},
+    requireInteraction = false,
+  } = payload;
+
+  const notificationOptions = {
+    body,
+    icon,
+    badge,
+    tag,
+    requireInteraction,
+    data: {
+      type,
+      ...data,
+    },
+    actions: getActionsForType(type),
+    vibrate: [200, 100, 200],
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(title, notificationOptions)
+  );
+});
+
+/**
+ * Notification click event handler
+ */
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  const { data } = event.notification;
+  const { type, orderId, tradedSymbol, link } = data;
+
+  let clientUrl = '/';
+
+  switch (type) {
+    case 'trade':
+      clientUrl = `/dashboard?tab=trades&orderId=${orderId || ''}`;
+      break;
+    case 'price-alert':
+      clientUrl = `/dashboard?tab=alerts&symbol=${tradedSymbol || ''}`;
+      break;
+    case 'referral':
+      clientUrl = '/dashboard?tab=referrals';
+      break;
+    default:
+      clientUrl = link || '/';
+  }
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
+      // Check if there's already a window/tab open
+      for (let i = 0; i < windowClients.length; i++) {
+        const client = windowClients[i];
+        if (client.url === clientUrl && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // If not, open a new window
+      if (clients.openWindow) {
+        return clients.openWindow(clientUrl);
+      }
+    })
+  );
+});
+
+/**
+ * Notification close event handler - for analytics
+ */
+self.addEventListener('notificationclose', (event) => {
+  const { data } = event.notification;
+  // Could send analytics here
+  console.debug('Notification dismissed:', data.type);
+});
+
+/**
+ * Message event handler - for main thread communication
+ */
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SHOW_NOTIFICATION') {
+    const { payload } = event.data;
+
+    const {
+      title = 'SwapTrade',
+      body = 'Notification',
+      icon = '/favicon.ico',
+      badge = '/badge.png',
+      tag = `notification-${Date.now()}`,
+      data = {},
+      requireInteraction = false,
+    } = payload;
+
+    const notificationOptions = {
+      body,
+      icon,
+      badge,
+      tag,
+      requireInteraction,
+      data,
+      vibrate: [200, 100, 200],
+    };
+
+    self.registration.showNotification(title, notificationOptions);
+  }
+});
+
+/**
+ * Get notification actions based on notification type
+ */
+function getActionsForType(type) {
+  switch (type) {
+    case 'trade':
+      return [
+        { action: 'view', title: 'View Order' },
+        { action: 'close', title: 'Dismiss' },
+      ];
+    case 'price-alert':
+      return [
+        { action: 'view', title: 'View Chart' },
+        { action: 'close', title: 'Dismiss' },
+      ];
+    default:
+      return [];
+  }
+}
