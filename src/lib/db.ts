@@ -61,6 +61,39 @@ function initDb(database: Db) {
       reset_at INTEGER NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS premium_waitlist (
+      id TEXT PRIMARY KEY,
+      email TEXT NOT NULL UNIQUE,
+      email_hash TEXT NOT NULL UNIQUE,
+      name TEXT,
+      position INTEGER NOT NULL UNIQUE,
+      interested_date INTEGER,
+      is_active INTEGER NOT NULL DEFAULT 1,
+      created_at INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS push_subscriptions (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      endpoint TEXT NOT NULL UNIQUE,
+      auth_key TEXT,
+      p256dh_key TEXT,
+      subscription_data TEXT NOT NULL,
+      is_active INTEGER DEFAULT 1,
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS notification_preferences (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL UNIQUE,
+      preferences_data TEXT NOT NULL,
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
     CREATE UNIQUE INDEX IF NOT EXISTS idx_referrals_referred_id ON referrals(referred_id);
     CREATE INDEX IF NOT EXISTS idx_referral_codes_referrer_id ON referral_codes(referrer_id);
   `);
