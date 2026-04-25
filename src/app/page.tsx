@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from '@/components/Hero';
 import Navbar from '@/components/Navbar';
 import dynamic from 'next/dynamic';
@@ -15,9 +17,19 @@ const Leaderboard = dynamic(() => import('@/components/Leaderboard'), {
       </div>
     </div>
   ),
-  ssr: false
+  ssr: false,
 });
-import AdvancedChart from '@/components/AdvancedChart';
+
+const AdvancedChart = dynamic(() => import('@/components/AdvancedChart'), {
+  loading: () => (
+    <div className="w-full max-w-6xl mx-auto px-4 py-10">
+      <div className="rounded-3xl border border-gray-200 bg-white/90 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-950/80">
+        <div className="h-[440px] bg-gray-100/70 dark:bg-slate-800/70 animate-pulse rounded-3xl" />
+      </div>
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function Home() {
   return (
