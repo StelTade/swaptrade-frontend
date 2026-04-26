@@ -106,10 +106,21 @@ function initDb(database: Db) {
   ensureColumn(database, 'points_adjustments', 'action', 'TEXT');
 
   database.exec(`
+    CREATE TABLE IF NOT EXISTS email_verification_tokens (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      token TEXT NOT NULL UNIQUE,
+      expires_at INTEGER NOT NULL,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
     CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_hash ON users(email_hash) WHERE email_hash IS NOT NULL;
     CREATE INDEX IF NOT EXISTS idx_rate_limits_reset_at ON rate_limits(reset_at);
     CREATE INDEX IF NOT EXISTS idx_referrals_rewarded_at ON referrals(rewarded_at);
     CREATE INDEX IF NOT EXISTS idx_points_adjustments_user_id ON points_adjustments(user_id);
+    CREATE INDEX IF NOT EXISTS idx_email_verification_tokens_user_id ON email_verification_tokens(user_id);
+    CREATE INDEX IF NOT EXISTS idx_email_verification_tokens_expires_at ON email_verification_tokens(expires_at);
   `);
 }
 

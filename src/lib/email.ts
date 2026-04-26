@@ -1,5 +1,99 @@
-export async function sendWaitlistSignupEmail(_: { to: string; name?: string }) {
+export async function sendWaitlistSignupEmail({
+  to,
+  name,
+  verificationLink,
+}: {
+  to: string;
+  name?: string;
+  verificationLink?: string;
+}) {
   if (process.env.EMAIL_MODE !== 'enabled') return;
+
+  // Generate email subject and content
+  const subject = 'Welcome to SwapTrade Waitlist!';
+
+  const displayName = name ? name.split(' ')[0] : 'there';
+  const confirmationButton = verificationLink
+    ? `<p style="text-align: center; margin: 30px 0;">
+        <a href="${verificationLink}" style="display: inline-block; background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+          Confirm Your Email
+        </a>
+      </p>`
+    : '';
+
+  const expirationNote = verificationLink
+    ? '<p style="color: #6b7280; font-size: 14px; text-align: center; margin-top: 20px;">This link expires in 24 hours.</p>'
+    : '';
+
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+          .content { padding: 30px 20px; background: #fff; border: 1px solid #e5e7eb; border-radius: 0 0 8px 8px; }
+          .benefit { margin: 15px 0; padding: 12px; background: #f0fdf4; border-left: 4px solid #16a34a; }
+          .footer { border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px; font-size: 12px; color: #6b7280; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Welcome to SwapTrade! 🚀</h1>
+          </div>
+
+          <div class="content">
+            <p>Hi ${displayName},</p>
+
+            <p>Thank you for joining our waitlist! We're excited to have you on board as we build the next generation of crypto trading simulators.</p>
+
+            ${confirmationButton}
+
+            <h2 style="color: #1f2937; margin-top: 30px; font-size: 18px;">What to Expect:</h2>
+
+            <div class="benefit">
+              <strong>📧 Updates</strong> - We'll keep you posted on our launch progress
+            </div>
+            <div class="benefit">
+              <strong>🎁 Exclusive Perks</strong> - Early access and special bonuses for our founding members
+            </div>
+            <div class="benefit">
+              <strong>💡 Beta Features</strong> - Get early access to new features as we develop them
+            </div>
+
+            <h2 style="color: #1f2937; margin-top: 30px; font-size: 18px;">About SwapTrade</h2>
+            <p>SwapTrade is a risk-free platform for learning crypto trading with realistic market conditions. Trade with virtual funds, learn crypto strategies, and compete with others on our leaderboard.</p>
+
+            <div class="benefit">
+              <strong>No Risk</strong> - Practice with virtual money
+            </div>
+            <div class="benefit">
+              <strong>Real Market</strong> - Live crypto prices and realistic trading
+            </div>
+            <div class="benefit">
+              <strong>Community</strong> - Compete and learn from other traders
+            </div>
+
+            <p style="margin-top: 30px; color: #374151;">
+              Questions? Reply to this email or visit our website at swaptrade.com
+            </p>
+
+            ${expirationNote}
+          </div>
+
+          <div class="footer">
+            <p>© 2026 SwapTrade. All rights reserved.</p>
+            <p>You received this email because you joined our waitlist. <a href="https://swaptrade.com/unsubscribe" style="color: #16a34a; text-decoration: none;">Unsubscribe</a></p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  // TODO: Implement actual email sending via email provider (SendGrid, Resend, etc.)
+  console.log(`Email would be sent to ${to} with subject: ${subject}`);
   return;
 }
 
