@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { WaitlistUser } from '@/types/emailVerification';
 
 export interface VerificationState {
   isLoading: boolean;
   isVerified: boolean;
   error: string | null;
+  user?: WaitlistUser;
 }
 
 export function useEmailVerification() {
@@ -28,8 +30,13 @@ export function useEmailVerification() {
       const data = await response.json();
 
       if (response.ok) {
-        setState({ isLoading: false, isVerified: true, error: null });
-        return { success: true, message: data.message };
+        setState({
+          isLoading: false,
+          isVerified: true,
+          error: null,
+          user: data.user
+        });
+        return { success: true, message: data.message, user: data.user };
       } else {
         setState({ isLoading: false, isVerified: false, error: data.message });
         return { success: false, message: data.message };
