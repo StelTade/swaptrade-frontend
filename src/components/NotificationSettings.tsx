@@ -53,7 +53,7 @@ export default function NotificationSettings({
       await requestPermission();
     }
 
-    if (isPushSupported()) {
+    if (isPushSupported) {
       await togglePushSubscription();
     }
   };
@@ -149,7 +149,7 @@ export default function NotificationSettings({
         </div>
 
         {/* Push Notifications */}
-        {isPushSupported() && (
+        {isPushSupported && (
           <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-3">
               <div>
@@ -248,6 +248,27 @@ export default function NotificationSettings({
                     type="checkbox"
                     checked={localPrefs.referralNotifications}
                     onChange={() => handleToggle('referralNotifications')}
+                    disabled={!localPrefs.enabled}
+                    className="w-5 h-5 rounded border-gray-300 disabled:opacity-50"
+                  />
+                </label>
+              </div>
+
+              {/* Trading Bonus Alerts */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <label className="font-medium text-gray-900 dark:text-white">
+                    Trading Bonuses
+                  </label>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Get notified when you earn trading bonuses
+                  </p>
+                </div>
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={localPrefs.tradingBonusAlerts}
+                    onChange={() => handleToggle('tradingBonusAlerts')}
                     disabled={!localPrefs.enabled}
                     className="w-5 h-5 rounded border-gray-300 disabled:opacity-50"
                   />

@@ -21,6 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
     { name: t("nav.home"), path: "/" },
     { name: t("nav.markets"), path: "/markets" },
     { name: t("nav.portfolio"), path: "/portfolio" },
+    { name: t("nav.bonuses"), path: "/dashboard/bonuses" },
     { name: t("nav.about"), path: "/about" },
   ];
 

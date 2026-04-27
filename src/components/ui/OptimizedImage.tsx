@@ -4,6 +4,7 @@ export default function OptimizedImage({
   quality = 75,
   loading = 'lazy',
   sizes = '(max-width: 768px) 100vw, 50vw',
+  alt = '',
   ...props
 }: ImageProps) {
   return (
@@ -11,6 +12,7 @@ export default function OptimizedImage({
       loading={loading}
       quality={quality}
       sizes={sizes}
+      alt={alt}
       {...props}
     />
   )

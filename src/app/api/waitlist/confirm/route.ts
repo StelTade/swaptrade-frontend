@@ -4,7 +4,6 @@ import { getDb } from '@/lib/db';
 import {
   enforceRateLimit,
   getClientIp,
-  validateCsrf,
   validateSameOrigin,
 } from '@/lib/security';
 

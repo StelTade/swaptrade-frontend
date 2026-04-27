@@ -211,7 +211,7 @@ export function CompactNotificationControls({ userId }: { userId: string }) {
   );
 }
 
-export default {
+const notificationExamples = {
   DashboardWithNotifications,
   handleTradeFilledEvent,
   setupPriceMonitoring,
@@ -220,3 +220,5 @@ export default {
   SettingsModal,
   CompactNotificationControls,
 };
+
+export default notificationExamples;

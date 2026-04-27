@@ -29,6 +29,7 @@ const initialState: NotificationState = {
     tradeAlerts: true,
     priceAlerts: true,
     referralNotifications: true,
+    tradingBonusAlerts: true,
     systemNotifications: true,
     sound: true,
     vibration: true,
@@ -66,7 +67,7 @@ export const updateNotificationPreferences = createAsyncThunk(
     try {
       await setNotificationPreferences(preferences, userId);
       return { ...getNotificationPreferences(), ...preferences };
-    } catch (error) {
+    } catch {
       return rejectWithValue('Failed to update preferences');
     }
   }
@@ -81,7 +82,7 @@ export const subscribeToPush = createAsyncThunk(
     try {
       const subscription = await subscribeToPushNotifications(userId);
       return !!subscription;
-    } catch (error) {
+    } catch {
       return rejectWithValue('Failed to subscribe to push notifications');
     }
   }
@@ -96,7 +97,7 @@ export const unsubscribeFromPush = createAsyncThunk(
     try {
       await unsubscribeFromPushNotifications();
       return false;
-    } catch (error) {
+    } catch {
       return rejectWithValue('Failed to unsubscribe from push notifications');
     }
   }

@@ -42,8 +42,6 @@ export default function Leaderboard() {
         })
       );
       setEntries(ranked);
-    } catch {
-      setError(t("leaderboard.error"));
     } finally {
       setLoading(false);
     }
