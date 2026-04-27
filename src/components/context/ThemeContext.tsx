@@ -4,9 +4,7 @@ import React, {
   useContext,
   useState,
   useEffect,
-  useMemo,
 } from "react";
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 
 interface ThemeContextType {
   isDarkMode: boolean;
@@ -46,43 +44,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsDarkMode((prev) => !prev);
   };
 
-  const muiTheme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: isDarkMode ? "dark" : "light",
-          primary: {
-            main: isDarkMode ? "#4ade80" : "#16a34a",
-            contrastText: "#ffffff",
-          },
-          background: {
-            default: isDarkMode ? "#0a0a0a" : "#ffffff",
-            paper: isDarkMode ? "#111111" : "#f9fafb",
-          },
-          text: {
-            primary: isDarkMode ? "#ededed" : "#000000",
-            secondary: isDarkMode ? "#a1a1aa" : "#52525b",
-          },
-        },
-        transitions: {
-          duration: {
-            standard: 300,
-          },
-        },
-        components: {
-          MuiButtonBase: {
-            defaultProps: {
-              disableRipple: false,
-            },
-          },
-        },
-      }),
-    [isDarkMode]
-  );
-
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>
+      {children}
     </ThemeContext.Provider>
   );
 };

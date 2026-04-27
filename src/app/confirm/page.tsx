@@ -1,17 +1,16 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 
-function ConfirmContent() {
-  const searchParams = useSearchParams();
+export default function ConfirmPage() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'expired'>('loading');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     const confirmEmail = async () => {
+      const searchParams = new URLSearchParams(window.location.search);
       const token = searchParams.get('token');
       const userId = searchParams.get('userId');
 
@@ -51,7 +50,7 @@ function ConfirmContent() {
     };
 
     confirmEmail();
-  }, [searchParams]);
+  }, []);
 
   return (
     <div className="max-w-md mx-auto text-center">

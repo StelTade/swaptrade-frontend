@@ -6,7 +6,6 @@
 
 'use client';
 
-import React from 'react';
 import PremiumWaitlist from '@/components/PremiumWaitlist';
 import PremiumWaitlistDashboard from '@/components/PremiumWaitlistDashboard';
 
@@ -84,10 +83,8 @@ export function NavbarPremiumCTA() {
  */
 export function trackPremiumSignup(email: string, position: number) {
   // Google Analytics
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).gtag('event', 'premium_signup', {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'premium_signup', {
       email,
       position,
       timestamp: new Date().toISOString(),
@@ -95,9 +92,7 @@ export function trackPremiumSignup(email: string, position: number) {
   }
 
   // Segment or other analytics
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (typeof window !== 'undefined' && (window as any).analytics) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).analytics.track('Premium Signed Up', {
       email,
       position,
@@ -208,10 +203,10 @@ export function WaitlistPositionCard({ email }: { email: string }) {
   return (
     <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-lg">
       <p className="text-gray-900 font-semibold">
-        🎉 You&apos;re #{position} on the premium waitlist!
+        🎉 You're #{position} on the premium waitlist!
       </p>
       <p className="text-sm text-gray-600 mt-1">
-        You&apos;ll be among the first to access SwapTrade Premium when it launches.
+        You'll be among the first to access SwapTrade Premium when it launches.
       </p>
     </div>
   );
@@ -234,7 +229,8 @@ export function segmentForEmailMarketing(position: number): string {
   return 'general'; // Not on waitlist
 }
 
-const examples = {
+// Export all examples
+export default {
   PremiumLandingPageExample,
   CompactPremiumFormExample,
   AdminDashboardExample,
@@ -246,5 +242,4 @@ const examples = {
   segmentForEmailMarketing,
 };
 
-// Export all examples
-export default examples;
+import React from 'react';
