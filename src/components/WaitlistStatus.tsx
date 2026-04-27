@@ -102,8 +102,10 @@ export default function WaitlistStatus() {
           <h3 className="font-semibold text-green-900 dark:text-green-100 mb-1">
             Email Confirmed!
           </h3>
+          <div className="bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 px-4 py-3 rounded-lg relative mb-4">
+            You&apos;re on the waitlist! We&apos;ll notify you when SwapTrade launches.
+          </div>
           <p className="text-sm text-green-800 dark:text-green-200">
-            You're on the waitlist! We'll notify you when SwapTrade launches.
             {status.position && ` Your position: #${status.position}`}
           </p>
         </div>

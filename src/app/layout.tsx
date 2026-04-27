@@ -42,11 +42,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <EmotionRegistry>
-          <I18nProvider>
-            <ThemeProvider>{children}</ThemeProvider>
-          </I18nProvider>
-        </EmotionRegistry>
+        <ReduxProvider>
+          <EmotionRegistry>
+            <I18nProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </I18nProvider>
+          </EmotionRegistry>
+        </ReduxProvider>
       </body>
     </html>
   );

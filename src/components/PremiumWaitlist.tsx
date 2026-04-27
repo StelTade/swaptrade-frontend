@@ -247,7 +247,7 @@ export default function PremiumWaitlist({
           email: formData.email,
         });
       }
-    } catch (error) {
+    } catch {
       setErrors({
         submit: 'An error occurred. Please try again.',
       });
@@ -264,7 +264,7 @@ export default function PremiumWaitlist({
             <div className="text-center">
               <div className="text-4xl mb-3">✓</div>
               <h3 className="font-bold text-lg text-amber-900 dark:text-amber-100 mb-2">
-                You're On The List!
+                You&apos;re On The List!
               </h3>
               <p className="text-sm text-amber-700 dark:text-amber-200">
                 Check your email for exclusive early-access updates
@@ -383,7 +383,7 @@ export default function PremiumWaitlist({
       {showBenefits && (
         <div className="bg-slate-800/50 border-y border-slate-700 py-20">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-4 text-white">What You'll Get</h2>
+            <h2 className="text-4xl font-bold text-center mb-4 text-white">What You&apos;ll Get</h2>
             <p className="text-center text-slate-400 mb-16 max-w-2xl mx-auto">
               Everything you need to trade like a pro
             </p>
@@ -470,9 +470,9 @@ export default function PremiumWaitlist({
             {isSuccess ? (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🎉</div>
-                <h3 className="text-2xl font-bold text-white mb-3">You're In!</h3>
+                <h3 className="text-2xl font-bold text-white mb-3">You&apos;re In!</h3>
                 <p className="text-slate-400 mb-6">
-                  We've sent details to your email. Watch for exclusive updates and launch announcements.
+                  We&apos;ve sent details to your email. Watch for exclusive updates and launch announcements.
                 </p>
                 <div className="inline-block px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold rounded-lg">
                   Position: #{Math.floor(Math.random() * 500) + 1}
@@ -560,7 +560,7 @@ export default function PremiumWaitlist({
             {[
               {
                 q: 'When will SwapTrade Premium launch?',
-                a: 'We\'re targeting Q2 2026. Waitlist members will get early access first.',
+                a: 'We&apos;re targeting Q2 2026. Waitlist members will get early access first.',
               },
               {
                 q: 'Is there a cost?',
@@ -572,7 +572,7 @@ export default function PremiumWaitlist({
               },
               {
                 q: 'Do I need a paid account first?',
-                a: 'No! Premium is separate. Start with our free tier and upgrade whenever you\'re ready.',
+                a: 'No! Premium is separate. Start with our free tier and upgrade whenever you&apos;re ready.',
               },
             ].map((faq, idx) => (
               <div key={idx} className="bg-slate-900/50 border border-slate-700 rounded-lg p-6">

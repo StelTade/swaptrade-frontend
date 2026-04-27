@@ -85,8 +85,6 @@ export function getRecentSignups(limit: number = 10): TopReferrers[] {
  * Calculate conversion metrics
  */
 export function getConversionMetrics() {
-  const db = getDb();
-
   const stats = getPremiumWaitlistStats();
 
   // Estimate conversion opportunities

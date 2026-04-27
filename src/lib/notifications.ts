@@ -3,7 +3,7 @@
  * Handles push notifications, permissions, and subscription management for trade alerts
  */
 
-export type NotificationType = 'trade' | 'price-alert' | 'referral' | 'system';
+export type NotificationType = 'trade' | 'price-alert' | 'referral' | 'trading-bonus' | 'system';
 
 export interface NotificationPayload {
   type: NotificationType;
@@ -21,6 +21,7 @@ export interface NotificationPreferences {
   tradeAlerts: boolean;
   priceAlerts: boolean;
   referralNotifications: boolean;
+  tradingBonusAlerts: boolean;
   systemNotifications: boolean;
   sound: boolean;
   vibration: boolean;
@@ -31,6 +32,7 @@ const DEFAULTS: NotificationPreferences = {
   tradeAlerts: true,
   priceAlerts: true,
   referralNotifications: true,
+  tradingBonusAlerts: true,
   systemNotifications: true,
   sound: true,
   vibration: true,
