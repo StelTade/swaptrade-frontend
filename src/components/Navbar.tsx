@@ -10,7 +10,7 @@ interface NavbarProps {
   currentPath?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ currentPath = "/" }) => {
+const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { t } = useI18n();
