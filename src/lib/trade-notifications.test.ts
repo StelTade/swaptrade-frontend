@@ -33,7 +33,7 @@ describe('Trade Notifications', () => {
     it('should handle all trade statuses', () => {
       const statuses = ['placed', 'filled', 'partially_filled', 'cancelled', 'rejected', 'expired'];
       statuses.forEach((status) => {
-        const title = getTradeNotificationTitle('buy', status as any);
+        const title = getTradeNotificationTitle('buy', status as TradeStatus);
         expect(title).toBeTruthy();
         expect(title.length).toBeGreaterThan(0);
       });

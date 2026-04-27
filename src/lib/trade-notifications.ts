@@ -3,7 +3,7 @@
  * Handles sending notifications for trade events
  */
 
-import { showNotification, sendTradeNotification } from '@/lib/notifications';
+import { showNotification } from '@/lib/notifications';
 import type { NotificationPayload } from '@/lib/notifications';
 
 export type TradeStatus = 'placed' | 'filled' | 'partially_filled' | 'cancelled' | 'rejected' | 'expired';
@@ -203,6 +203,32 @@ export async function notifyReferralMilestone(data: {
     await showNotification(payload);
   } catch (error) {
     console.error('Failed to send referral notification:', error);
+  }
+}
+
+/**
+ * Send a trading bonus notification
+ */
+export async function notifyTradingBonus(data: {
+  amount: number;
+  reason: string;
+}): Promise<void> {
+  try {
+    const title = 'Trading Bonus Earned! 🚀';
+    const body = `You earned ${data.amount} points: ${data.reason}`;
+
+    const payload: NotificationPayload = {
+      type: 'trading-bonus',
+      title,
+      body,
+      tag: `trading-bonus-${Date.now()}`,
+      requireInteraction: true,
+      data,
+    };
+
+    await showNotification(payload);
+  } catch (error) {
+    console.error('Failed to send trading bonus notification:', error);
   }
 }
 

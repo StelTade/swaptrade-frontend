@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
  * Admin endpoint to get premium waitlist analytics
  * Should be protected with proper authentication in production
  */
-export async function GET(req: Request) {
+export async function GET() {
   try {
     // TODO: Add authentication check
     // const isAdmin = await verifyAdminToken(req);

@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     // This would integrate with a push notification service
     for (const sub of subscriptions) {
       try {
-        const subscription = JSON.parse(sub.subscription_data);
+        JSON.parse(sub.subscription_data);
         // Here you would send the actual push notification
         // await sendPushNotification(subscription, payload);
         results.sent++;
