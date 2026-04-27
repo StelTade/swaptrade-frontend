@@ -53,7 +53,7 @@ export default function NotificationSettings({
       await requestPermission();
     }
 
-    if (isPushSupported()) {
+    if (isPushSupported) {
       await togglePushSubscription();
     }
   };
@@ -149,7 +149,7 @@ export default function NotificationSettings({
         </div>
 
         {/* Push Notifications */}
-        {isPushSupported() && (
+        {isPushSupported && (
           <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-3">
               <div>

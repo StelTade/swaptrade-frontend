@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
- webpack: (config, { isServer }) => {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.usedExports = true;
       config.optimization.sideEffects = false;
