@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "Home",
+    "markets": "Markets",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "signIn": "Sign In",
+    "toggleDark": "Toggle dark mode",
+    "toggleMenu": "Toggle navigation menu"
+  },
+  "hero": {
+    "title": "A crypto trading simulator",
+    "subtitle": "Experience risk-free crypto trading using virtual assets on Starknet. Perfect for learning and strategy testing."
+  },
+  "waitlist": {
+    "emailLabel": "Email address",
+    "emailRequired": "(required)",
+    "emailPlaceholder": "you@example.com",
+    "emailRequiredError": "Email address is required",
+    "emailInvalidError": "Please enter a valid email address",
+    "nameLabel": "Name",
+    "nameOptional": "(optional)",
+    "namePlaceholder": "John Doe",
+    "submitButton": "Join Waitlist",
+    "submitting": "Joining...",
+    "privacy": "We respect your privacy. Unsubscribe at any time.",
+    "captchaLabel": "Captcha",
+    "captchaExpired": "Captcha expired. Please try again.",
+    "captchaError": "Captcha error. Please try again.",
+    "captchaRequired": "Please complete the captcha.",
+    "csrfUnavailable": "Security token unavailable. Please refresh.",
+    "csrfMissing": "Security token missing. Please refresh and try again.",
+    "successTitle": "You're on the list!",
+    "successMessage": "Thank you for joining our waitlist. We'll notify you when SwapTrade is ready.",
+    "joinAnother": "Join with another email",
+    "genericError": "An unexpected error occurred. Please try again."
+  },
+  "leaderboard": {
+    "title": "🏆 Top Referrers",
+    "loading": "Loading leaderboard…",
+    "error": "Unable to load leaderboard. Please try again later.",
+    "empty": "No entries yet. Be the first to refer a friend!",
+    "points": "{points} pts",
+    "referral": "referral",
+    "referrals": "referrals",
+    "rank": "Rank {rank}"
+  },
+  "dashboard": {
+    "title": "Your Referral Dashboard",
+    "points": "Points",
+    "rank": "Rank",
+    "referrals": "Referrals",
+    "referralLink": "Your Referral Link",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "copyAriaLabel": "Copy referral link to clipboard",
+    "referralLinkAriaLabel": "Your referral link",
+    "peopleReferred": "People You've Referred ({count})",
+    "noReferrals": "No referrals yet. Share your link to get started!",
+    "verified": "Verified ✓",
+    "pending": "Pending",
+    "loading": "Loading dashboard…",
+    "notVerified": "Your account is not yet verified.",
+    "loadError": "Failed to load dashboard.",
+    "genericError": "Something went wrong.",
+    "shareTwitter": "Share on Twitter",
+    "shareFacebook": "Share on Facebook",
+    "shareWhatsApp": "Share on WhatsApp",
+    "shareText": "Join SwapTrade — the risk-free crypto trading simulator!"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch",
+    "zh": "中文",
+    "ar": "العربية"
+  }
+}

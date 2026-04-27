@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "markets": "Marchés",
+    "portfolio": "Portefeuille",
+    "about": "À propos",
+    "signIn": "Se connecter",
+    "toggleDark": "Basculer le mode sombre",
+    "toggleMenu": "Basculer le menu de navigation"
+  },
+  "hero": {
+    "title": "Un simulateur de trading crypto",
+    "subtitle": "Vivez une expérience de trading crypto sans risque avec des actifs virtuels sur Starknet. Idéal pour apprendre et tester des stratégies."
+  },
+  "waitlist": {
+    "emailLabel": "Adresse e-mail",
+    "emailRequired": "(obligatoire)",
+    "emailPlaceholder": "vous@exemple.com",
+    "emailRequiredError": "L'adresse e-mail est obligatoire",
+    "emailInvalidError": "Veuillez entrer une adresse e-mail valide",
+    "nameLabel": "Nom",
+    "nameOptional": "(facultatif)",
+    "namePlaceholder": "Jean Dupont",
+    "submitButton": "Rejoindre la liste d'attente",
+    "submitting": "Inscription...",
+    "privacy": "Nous respectons votre vie privée. Désabonnez-vous à tout moment.",
+    "captchaLabel": "Captcha",
+    "captchaExpired": "Captcha expiré. Veuillez réessayer.",
+    "captchaError": "Erreur de captcha. Veuillez réessayer.",
+    "captchaRequired": "Veuillez compléter le captcha.",
+    "csrfUnavailable": "Jeton de sécurité indisponible. Veuillez actualiser.",
+    "csrfMissing": "Jeton de sécurité manquant. Veuillez actualiser et réessayer.",
+    "successTitle": "Vous êtes sur la liste !",
+    "successMessage": "Merci de rejoindre notre liste d'attente. Nous vous informerons quand SwapTrade sera prêt.",
+    "joinAnother": "S'inscrire avec un autre e-mail",
+    "genericError": "Une erreur inattendue s'est produite. Veuillez réessayer."
+  },
+  "leaderboard": {
+    "title": "🏆 Meilleurs parrains",
+    "loading": "Chargement du classement…",
+    "error": "Impossible de charger le classement. Veuillez réessayer plus tard.",
+    "empty": "Aucune entrée pour l'instant. Soyez le premier à parrainer un ami !",
+    "points": "{points} pts",
+    "referral": "parrainage",
+    "referrals": "parrainages",
+    "rank": "Rang {rank}"
+  },
+  "dashboard": {
+    "title": "Votre tableau de bord de parrainage",
+    "points": "Points",
+    "rank": "Rang",
+    "referrals": "Parrainages",
+    "referralLink": "Votre lien de parrainage",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "copyAriaLabel": "Copier le lien de parrainage",
+    "referralLinkAriaLabel": "Votre lien de parrainage",
+    "peopleReferred": "Personnes que vous avez parrainées ({count})",
+    "noReferrals": "Aucun parrainage pour l'instant. Partagez votre lien pour commencer !",
+    "verified": "Vérifié ✓",
+    "pending": "En attente",
+    "loading": "Chargement du tableau de bord…",
+    "notVerified": "Votre compte n'est pas encore vérifié.",
+    "loadError": "Échec du chargement du tableau de bord.",
+    "genericError": "Une erreur s'est produite.",
+    "shareTwitter": "Partager sur Twitter",
+    "shareFacebook": "Partager sur Facebook",
+    "shareWhatsApp": "Partager sur WhatsApp",
+    "shareText": "Rejoignez SwapTrade — le simulateur de trading crypto sans risque !"
+  },
+  "language": {
+    "label": "Langue",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch",
+    "zh": "中文",
+    "ar": "العربية"
+  }
+}

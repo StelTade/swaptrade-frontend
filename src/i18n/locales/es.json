@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "markets": "Mercados",
+    "portfolio": "Portafolio",
+    "about": "Acerca de",
+    "signIn": "Iniciar sesión",
+    "toggleDark": "Alternar modo oscuro",
+    "toggleMenu": "Alternar menú de navegación"
+  },
+  "hero": {
+    "title": "Un simulador de trading de criptomonedas",
+    "subtitle": "Experimenta el trading de criptomonedas sin riesgo usando activos virtuales en Starknet. Perfecto para aprender y probar estrategias."
+  },
+  "waitlist": {
+    "emailLabel": "Correo electrónico",
+    "emailRequired": "(obligatorio)",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "emailRequiredError": "El correo electrónico es obligatorio",
+    "emailInvalidError": "Por favor ingresa un correo electrónico válido",
+    "nameLabel": "Nombre",
+    "nameOptional": "(opcional)",
+    "namePlaceholder": "Juan García",
+    "submitButton": "Unirse a la lista de espera",
+    "submitting": "Uniéndose...",
+    "privacy": "Respetamos tu privacidad. Cancela la suscripción en cualquier momento.",
+    "captchaLabel": "Captcha",
+    "captchaExpired": "Captcha expirado. Por favor intenta de nuevo.",
+    "captchaError": "Error de captcha. Por favor intenta de nuevo.",
+    "captchaRequired": "Por favor completa el captcha.",
+    "csrfUnavailable": "Token de seguridad no disponible. Por favor actualiza.",
+    "csrfMissing": "Token de seguridad faltante. Por favor actualiza e intenta de nuevo.",
+    "successTitle": "¡Estás en la lista!",
+    "successMessage": "Gracias por unirte a nuestra lista de espera. Te notificaremos cuando SwapTrade esté listo.",
+    "joinAnother": "Unirse con otro correo",
+    "genericError": "Ocurrió un error inesperado. Por favor intenta de nuevo."
+  },
+  "leaderboard": {
+    "title": "🏆 Mejores referidores",
+    "loading": "Cargando clasificación…",
+    "error": "No se puede cargar la clasificación. Por favor intenta más tarde.",
+    "empty": "Sin entradas aún. ¡Sé el primero en referir a un amigo!",
+    "points": "{points} pts",
+    "referral": "referido",
+    "referrals": "referidos",
+    "rank": "Rango {rank}"
+  },
+  "dashboard": {
+    "title": "Tu panel de referidos",
+    "points": "Puntos",
+    "rank": "Rango",
+    "referrals": "Referidos",
+    "referralLink": "Tu enlace de referido",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "copyAriaLabel": "Copiar enlace de referido al portapapeles",
+    "referralLinkAriaLabel": "Tu enlace de referido",
+    "peopleReferred": "Personas que has referido ({count})",
+    "noReferrals": "Sin referidos aún. ¡Comparte tu enlace para comenzar!",
+    "verified": "Verificado ✓",
+    "pending": "Pendiente",
+    "loading": "Cargando panel…",
+    "notVerified": "Tu cuenta aún no está verificada.",
+    "loadError": "Error al cargar el panel.",
+    "genericError": "Algo salió mal.",
+    "shareTwitter": "Compartir en Twitter",
+    "shareFacebook": "Compartir en Facebook",
+    "shareWhatsApp": "Compartir en WhatsApp",
+    "shareText": "¡Únete a SwapTrade — el simulador de trading de criptomonedas sin riesgo!"
+  },
+  "language": {
+    "label": "Idioma",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español",
+    "de": "Deutsch",
+    "zh": "中文",
+    "ar": "العربية"
+  }
+}
