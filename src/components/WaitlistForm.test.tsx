@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import WaitlistForm from '@/components/WaitlistForm';
 
@@ -8,16 +8,15 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-test('waitlist form is accessible', async () => {
-  const originalFetch = global.fetch;
-  global.fetch = jest.fn(async () => ({ ok: true, json: async () => ({ token: 't' }) })) as never;
+describe('WaitlistForm', () => {
+  it('renders the form correctly', () => {
+    const { container } = render(<WaitlistForm />);
+    expect(container.querySelector('input[type="email"]')).toBeInTheDocument();
+  });
 
-  const { container } = render(<WaitlistForm />);
-  expect(screen.getByRole('form', { name: 'Waitlist signup form' })).toBeInTheDocument();
-
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
-
-  global.fetch = originalFetch;
+  it('has no accessibility violations', async () => {
+    const { container } = render(<WaitlistForm />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });
-

@@ -7,43 +7,53 @@ interface WaitlistStatus {
   verified: boolean;
   joinedDate?: string;
   position?: number;
+  eta?: string;
+  daysUntilAccess?: number;
 }
 
 export default function WaitlistStatus() {
   const [status, setStatus] = useState<WaitlistStatus | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  const checkStatus = async () => {
+    const userId = localStorage.getItem('swaptrade_user_id');
+
+    if (!userId) {
+      setStatus({ isOnWaitlist: false, verified: false });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/waitlist/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setStatus(data);
+        setLastUpdated(new Date());
+      } else {
+        setStatus({ isOnWaitlist: false, verified: false });
+      }
+    } catch {
+      setStatus({ isOnWaitlist: false, verified: false });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const checkStatus = async () => {
-      const userId = localStorage.getItem('swaptrade_user_id');
-
-      if (!userId) {
-        setStatus({ isOnWaitlist: false, verified: false });
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await fetch('/api/waitlist/status', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setStatus(data);
-        } else {
-          setStatus({ isOnWaitlist: false, verified: false });
-        }
-      } catch {
-        setStatus({ isOnWaitlist: false, verified: false });
-      } finally {
-        setLoading(false);
-      }
-    };
-
     checkStatus();
+    
+    // Set up real-time updates - refresh position every 5 minutes (300000 ms)
+    const interval = setInterval(checkStatus, 300000);
+    
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -105,9 +115,25 @@ export default function WaitlistStatus() {
           <div className="bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 px-4 py-3 rounded-lg relative mb-4">
             You&apos;re on the waitlist! We&apos;ll notify you when SwapTrade launches.
           </div>
-          <p className="text-sm text-green-800 dark:text-green-200">
-            {status.position && ` Your position: #${status.position}`}
-          </p>
+          <div className="grid grid-cols-2 gap-4 mb-3">
+            {status.position && (
+              <div className="bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg p-3 text-center">
+                <p className="text-xs text-green-600 dark:text-green-400 uppercase tracking-wide mb-1">Your Position</p>
+                <p className="text-2xl font-bold text-green-800 dark:text-green-200">#{status.position}</p>
+              </div>
+            )}
+            {status.eta && (
+              <div className="bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg p-3 text-center">
+                <p className="text-xs text-green-600 dark:text-green-400 uppercase tracking-wide mb-1">Estimated Access</p>
+                <p className="text-xl font-bold text-green-800 dark:text-green-200">{status.eta}</p>
+              </div>
+            )}
+          </div>
+          {lastUpdated && (
+            <p className="text-xs text-green-700 dark:text-green-400">
+              Last updated: {lastUpdated.toLocaleTimeString()} • Refreshes automatically every 5 minutes
+            </p>
+          )}
         </div>
       </div>
     </div>
