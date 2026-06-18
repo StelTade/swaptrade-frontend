@@ -67,6 +67,25 @@ export async function POST(req: Request) {
       );
     }
 
+    // Calculate user's position: count number of verified users who joined before this user
+    const positionResult = database
+      .prepare('SELECT COUNT(*) as count FROM users WHERE verified = 1 AND created_at < ?')
+      .get(user.created_at) as { count: number };
+    
+    const position = positionResult.count + 1; // position is 1-based
+
+    // Calculate ETA: assume we process 50 users per day (can be adjusted based on actual launch plans)
+    const usersPerDay = 50;
+    const daysUntilAccess = Math.ceil(position / usersPerDay);
+    const etaDate = new Date();
+    etaDate.setDate(etaDate.getDate() + daysUntilAccess);
+    
+    const formattedEta = etaDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+
     // Format the joined date
     const joinedDate = new Date(user.created_at).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -80,6 +99,9 @@ export async function POST(req: Request) {
         verified: user.verified === 1,
         joinedDate,
         email: user.email,
+        position,
+        eta: formattedEta,
+        daysUntilAccess,
       },
       { status: 200 }
     );

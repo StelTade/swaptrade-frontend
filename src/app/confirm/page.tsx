@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 
-export default function ConfirmPage() {
+function ConfirmContent() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'expired'>('loading');
   const [message, setMessage] = useState('');
 
@@ -69,7 +69,7 @@ export default function ConfirmPage() {
                 cy="12"
                 r="10"
                 stroke="currentColor"
-                strokeWidth="4"
+                strokeWidth={4}
               />
               <path
                 className="opacity-75"

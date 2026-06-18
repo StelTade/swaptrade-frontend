@@ -4,7 +4,7 @@ import {
   shouldRequireInteraction,
   TradeNotificationWatcher,
 } from '@/lib/trade-notifications';
-import type { TradeData } from '@/lib/trade-notifications';
+import type { TradeData, TradeStatus } from '@/lib/trade-notifications';
 
 describe('Trade Notifications', () => {
   const mockTrade: TradeData = {

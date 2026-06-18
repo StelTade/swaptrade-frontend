@@ -1,26 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/context/ThemeContext";
 import EmotionRegistry from "@/components/context/EmotionRegistry";
 import { I18nProvider } from "@/i18n/context";
 import { ReduxProvider } from "@/components/context/ReduxProvider";
 
-const geistSans = Geist({
+const inter = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
   preload: true,
   weight: ["400", "500", "600", "700"],
   style: ["normal"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false, // Only load when needed
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} antialiased`}
       >
         <ReduxProvider>
           <EmotionRegistry>
