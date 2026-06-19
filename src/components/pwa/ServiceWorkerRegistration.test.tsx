@@ -2,9 +2,20 @@ import { render } from '@testing-library/react';
 import ServiceWorkerRegistration from './ServiceWorkerRegistration';
 
 const mockRegister = jest.fn(() => Promise.resolve({} as ServiceWorkerRegistration));
+const mockDispatch = jest.fn();
+
+jest.mock('@/store/hooks', () => ({
+  useAppDispatch: () => mockDispatch,
+}));
+
+jest.mock('@/store/notificationSlice', () => ({
+  loadNotificationPreferences: () => ({ type: 'notifications/loadPreferences' }),
+  checkPushSubscriptionStatus: () => ({ type: 'notifications/checkPushSubscriptionStatus' }),
+}));
 
 beforeEach(() => {
   mockRegister.mockClear();
+  mockDispatch.mockClear();
   Object.defineProperty(navigator, 'serviceWorker', {
     value: { register: mockRegister },
     configurable: true,
