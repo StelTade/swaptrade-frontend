@@ -94,8 +94,25 @@ function initDb(database: Db) {
       FOREIGN KEY (user_id) REFERENCES users(id)
     );
 
+    CREATE TABLE IF NOT EXISTS premium_spot_config (
+      id INTEGER PRIMARY KEY CHECK (id = 1),
+      total_spots INTEGER NOT NULL DEFAULT 500,
+      spots_taken INTEGER NOT NULL DEFAULT 0,
+      price_increase_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS spot_reservations (
+      id TEXT PRIMARY KEY,
+      email_hash TEXT NOT NULL UNIQUE,
+      reserved_at INTEGER NOT NULL,
+      expires_at INTEGER NOT NULL,
+      confirmed INTEGER NOT NULL DEFAULT 0
+    );
+
     CREATE UNIQUE INDEX IF NOT EXISTS idx_referrals_referred_id ON referrals(referred_id);
     CREATE INDEX IF NOT EXISTS idx_referral_codes_referrer_id ON referral_codes(referrer_id);
+    CREATE INDEX IF NOT EXISTS idx_spot_reservations_expires_at ON spot_reservations(expires_at);
   `);
 
   ensureColumn(database, 'users', 'email_hash', 'TEXT');
@@ -104,6 +121,20 @@ function initDb(database: Db) {
   ensureColumn(database, 'users', 'points', 'INTEGER NOT NULL DEFAULT 0');
   ensureColumn(database, 'referrals', 'rewarded_at', 'INTEGER');
   ensureColumn(database, 'points_adjustments', 'action', 'TEXT');
+
+  // Seed the spot config row exactly once
+  const configRow = database
+    .prepare('SELECT id FROM premium_spot_config WHERE id = 1')
+    .get();
+  if (!configRow) {
+    const now = Date.now();
+    // Price increases 30 days from first boot
+    database
+      .prepare(
+        'INSERT INTO premium_spot_config (id, total_spots, spots_taken, price_increase_at, updated_at) VALUES (1, 500, 0, ?, ?)'
+      )
+      .run(now + 30 * 24 * 60 * 60 * 1000, now);
+  }
 
   database.exec(`
     CREATE TABLE IF NOT EXISTS email_verification_tokens (
