@@ -117,51 +117,66 @@ export async function POST(req: Request) {
   }
 
   try {
+    type SpotConfig = { total_spots: number; spots_taken: number };
+
     const result = db.transaction(() => {
+      // Release expired reservations before checking availability
+      db.prepare('DELETE FROM spot_reservations WHERE expires_at <= ? AND confirmed = 0').run(now);
+
       // Check if already on premium waitlist
       const existing = db
-        .prepare(
-          'SELECT id, position FROM premium_waitlist WHERE email_hash = ? LIMIT 1'
-        )
+        .prepare('SELECT id, position FROM premium_waitlist WHERE email_hash = ? LIMIT 1')
         .get(emailHash) as { id: string; position: number } | undefined;
 
       if (existing) {
-        // Already on list - return existing position
-        return {
-          isNew: false,
-          position: existing.position,
-          email: normalizedEmail,
-        };
+        // Mark any reservation as confirmed
+        db.prepare('UPDATE spot_reservations SET confirmed = 1 WHERE email_hash = ?').run(emailHash);
+        return { isNew: false, position: existing.position, email: normalizedEmail };
       }
 
-      // Get the next position
+      // Verify a spot is available (reservation or open pool)
+      const config = db
+        .prepare('SELECT total_spots, spots_taken FROM premium_spot_config WHERE id = 1')
+        .get() as SpotConfig;
+
+      const reservation = db
+        .prepare('SELECT id FROM spot_reservations WHERE email_hash = ? AND expires_at > ?')
+        .get(emailHash, now) as { id: string } | undefined;
+
+      const activeReservations = (
+        db
+          .prepare('SELECT COUNT(*) as cnt FROM spot_reservations WHERE expires_at > ? AND confirmed = 0')
+          .get(now) as { cnt: number }
+      ).cnt;
+
+      const spotsAvailable = config.total_spots - config.spots_taken - activeReservations;
+
+      if (!reservation && spotsAvailable <= 0) {
+        throw Object.assign(new Error('No spots available'), { code: 'SPOTS_FULL' });
+      }
+
+      // Get next position and insert
       const lastRow = db
         .prepare('SELECT MAX(position) AS max_pos FROM premium_waitlist')
         .get() as { max_pos: number | null };
-
       const nextPosition = (lastRow.max_pos || 0) + 1;
 
-      // Insert into premium waitlist
-      const id = crypto.randomUUID();
       db.prepare(
         `INSERT INTO premium_waitlist
          (id, email, email_hash, name, position, interested_date, is_active, created_at)
          VALUES (?, ?, ?, ?, ?, ?, 1, ?)`
-      ).run(
-        id,
-        normalizedEmail,
-        emailHash,
-        name || null,
-        nextPosition,
-        now,
-        now
-      );
+      ).run(crypto.randomUUID(), normalizedEmail, emailHash, name || null, nextPosition, now, now);
 
-      return {
-        isNew: true,
-        position: nextPosition,
-        email: normalizedEmail,
-      };
+      // Decrement available spots and confirm/remove reservation
+      db.prepare(
+        'UPDATE premium_spot_config SET spots_taken = spots_taken + 1, updated_at = ? WHERE id = 1'
+      ).run(now);
+
+      if (reservation) {
+        db.prepare('UPDATE spot_reservations SET confirmed = 1 WHERE email_hash = ?').run(emailHash);
+      }
+
+      return { isNew: true, position: nextPosition, email: normalizedEmail };
     })();
 
     // Send confirmation email
@@ -196,6 +211,9 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
+    if (error instanceof Error && (error as Error & { code?: string }).code === 'SPOTS_FULL') {
+      return NextResponse.json({ message: 'Sorry, all premium spots are taken.' }, { status: 409 });
+    }
     console.error('Premium waitlist signup error:', error);
     return NextResponse.json(
       { message: 'Failed to join waitlist. Please try again.' },

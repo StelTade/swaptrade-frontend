@@ -2,10 +2,16 @@ const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({ dir: './' });
 
+const transform = {
+  '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+};
+
+const moduleNameMapper = {
+  '^@/(.*)$': '<rootDir>/src/$1',
+};
+
 const config = {
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+  moduleNameMapper,
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   collectCoverageFrom: [
     '<rootDir>/src/app/api/**/*.{ts,tsx}',
@@ -27,11 +33,15 @@ const config = {
       testEnvironment: 'jsdom',
       setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
       testMatch: ['<rootDir>/src/**/*.test.tsx'],
+      moduleNameMapper,
+      transform,
     },
     {
       displayName: 'server',
       testEnvironment: 'node',
       testMatch: ['<rootDir>/src/**/*.test.ts'],
+      moduleNameMapper,
+      transform,
     },
   ],
 };

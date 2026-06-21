@@ -2,6 +2,7 @@
 
 import Hero from '@/components/Hero';
 import Navbar from '@/components/Navbar';
+import SocialProofSection from '@/components/SocialProofSection';
 import dynamic from 'next/dynamic';
 
 const Leaderboard = dynamic(() => import('@/components/Leaderboard'), {
@@ -37,6 +38,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <AdvancedChart />
+      <SocialProofSection />
       <Leaderboard />
     </div>
   );

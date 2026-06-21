@@ -6,6 +6,7 @@ import { useTheme } from "./context/ThemeContext";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useI18n } from "@/i18n/context";
 import LanguageSwitcher from "./LanguageSwitcher";
+import MarketTickerTape from './shared/MarketTickerTape';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -167,6 +168,9 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Market ticker */}
+      <MarketTickerTape />
     </nav>
   );
 };

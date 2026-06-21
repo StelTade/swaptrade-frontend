@@ -266,12 +266,25 @@ export async function POST(req: Request) {
     }
 
     try {
-      await sendWaitlistSignupEmail({
-        to: normalizedEmail,
+      // keep previous simple call shape for tests and backwards-compatibility
+      await sendWaitlistSignupEmail({ to: normalizedEmail, name, verificationLink: undefined });
+    } catch (err) {
+      console.error('sendWaitlistSignupEmail error', err);
+    }
+
+    // schedule onboarding sequence (best-effort)
+    try {
+      const { schedulePostSignupSequence } = await import('@/lib/onboardingEmails');
+      schedulePostSignupSequence({
+        userId: result.user.id,
+        email: normalizedEmail,
         name,
-        verificationLink: undefined, // TODO: Add verification link when email service is set up
-      });
-    } catch {}
+        referralLink: `https://${req.headers.get('host') || 'swaptrade.com'}/?ref=${result.myReferralCode}`,
+        isPremium: false,
+      }).catch((e) => console.error('schedulePostSignupSequence failed', e));
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json(result, { status: 200 });
   } catch (err) {
