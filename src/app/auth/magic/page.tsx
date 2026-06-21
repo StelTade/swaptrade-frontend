@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function MagicAuthPage() {
+function MagicAuthContent() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<string | null>(null);
   const router = useRouter();
@@ -56,5 +56,13 @@ export default function MagicAuthPage() {
         {status && <p className="text-sm text-gray-600">{status}</p>}
       </form>
     </main>
+  );
+}
+
+export default function MagicAuthPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MagicAuthContent />
+    </Suspense>
   );
 }
