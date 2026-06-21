@@ -94,21 +94,21 @@ function initDb(database: Db) {
       FOREIGN KEY (user_id) REFERENCES users(id)
     );
 
-    CREATE TABLE IF NOT EXISTS premium_spot_config (
-      id INTEGER PRIMARY KEY CHECK (id = 1),
-      total_spots INTEGER NOT NULL DEFAULT 500,
-      spots_taken INTEGER NOT NULL DEFAULT 0,
-      price_increase_at INTEGER NOT NULL,
-      updated_at INTEGER NOT NULL
+    CREATE TABLE IF NOT EXISTS email_jobs (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      email TEXT NOT NULL,
+      template TEXT NOT NULL,
+      send_at INTEGER NOT NULL,
+      sent_at INTEGER,
+      meta TEXT,
+      created_at INTEGER NOT NULL,
+      status TEXT NOT NULL DEFAULT 'pending',
+      FOREIGN KEY (user_id) REFERENCES users(id)
     );
 
-    CREATE TABLE IF NOT EXISTS spot_reservations (
-      id TEXT PRIMARY KEY,
-      email_hash TEXT NOT NULL UNIQUE,
-      reserved_at INTEGER NOT NULL,
-      expires_at INTEGER NOT NULL,
-      confirmed INTEGER NOT NULL DEFAULT 0
-    );
+    CREATE INDEX IF NOT EXISTS idx_email_jobs_send_at ON email_jobs(send_at);
+    CREATE INDEX IF NOT EXISTS idx_email_jobs_status ON email_jobs(status);
 
     CREATE UNIQUE INDEX IF NOT EXISTS idx_referrals_referred_id ON referrals(referred_id);
     CREATE INDEX IF NOT EXISTS idx_referral_codes_referrer_id ON referral_codes(referrer_id);
@@ -163,6 +163,35 @@ function initDb(database: Db) {
     CREATE INDEX IF NOT EXISTS idx_email_verification_tokens_expires_at ON email_verification_tokens(expires_at);
     CREATE INDEX IF NOT EXISTS idx_share_tracking_user_id ON share_tracking(user_id);
     CREATE INDEX IF NOT EXISTS idx_share_tracking_created_at ON share_tracking(created_at);
+
+    CREATE TABLE IF NOT EXISTS unsubscribed_emails (
+      email TEXT PRIMARY KEY,
+      reason TEXT,
+      created_at INTEGER NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_unsubscribed_emails_created_at ON unsubscribed_emails(created_at);
+
+    CREATE TABLE IF NOT EXISTS email_preferences (
+      email TEXT PRIMARY KEY,
+      preferences_data TEXT NOT NULL,
+      updated_at INTEGER NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_email_preferences_updated_at ON email_preferences(updated_at);
+
+    CREATE TABLE IF NOT EXISTS magic_links (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      token TEXT NOT NULL UNIQUE,
+      expires_at INTEGER NOT NULL,
+      created_at INTEGER NOT NULL,
+      used_at INTEGER,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_magic_links_expires_at ON magic_links(expires_at);
+    CREATE INDEX IF NOT EXISTS idx_magic_links_user_id ON magic_links(user_id);
   `);
 }
 

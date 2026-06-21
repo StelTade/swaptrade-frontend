@@ -71,12 +71,27 @@ function ShareButtons({
 export default function ReferralDashboard({ userId }: { userId: string }) {
   const dispatch = useAppDispatch();
   const { data, loading, error, analytics } = useAppSelector((state) => state.referral);
+  const [exclusive, setExclusive] = useState<Array<{ id: string; title: string; body: string }>>([]);
+  const [isPremium, setIsPremium] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showQR, setShowQR] = useState(false);
 
   useEffect(() => {
     dispatch(fetchDashboard(userId));
     dispatch(fetchShareAnalytics(userId));
+    // fetch exclusive content
+    (async () => {
+      try {
+        const res = await fetch(`/api/users/${userId}/exclusive`);
+        if (res.ok) {
+          const json = await res.json();
+          setExclusive(json.content || []);
+          setIsPremium(!!json.isPremium);
+        }
+      } catch (e) {
+        // ignore
+      }
+    })();
   }, [dispatch, userId]);
 
   const referralUrl = data?.referralCode
@@ -269,6 +284,24 @@ export default function ReferralDashboard({ userId }: { userId: string }) {
                 >
                   {r.verified ? "Verified ✓" : "Pending"}
                 </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Exclusive content */}
+      <div className="space-y-3">
+        <h2 className="text-lg font-semibold text-[var(--foreground)]">Exclusive content</h2>
+        {isPremium && <p className="text-sm text-yellow-600">Premium member — unlocks extra content</p>}
+        {exclusive.length === 0 ? (
+          <p className="text-gray-500 text-sm">No exclusive content available yet.</p>
+        ) : (
+          <ul className="space-y-2">
+            {exclusive.map((c) => (
+              <li key={c.id} className="p-3 border rounded-lg bg-gray-50 dark:bg-gray-800">
+                <h3 className="font-semibold">{c.title}</h3>
+                <p className="text-sm text-gray-600 mt-1">{c.body}</p>
               </li>
             ))}
           </ul>
