@@ -178,7 +178,7 @@ function ConfirmContent() {
 export default function ConfirmPage() {
   return (
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <Navbar currentPath="/confirm" />
+      <Navbar />
       <main className="container mx-auto px-4 py-20">
         <Suspense fallback={<div className="text-center">Loading...</div>}>
           <ConfirmContent />

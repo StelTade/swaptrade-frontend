@@ -1,17 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "./context/ThemeContext";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useI18n } from "@/i18n/context";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-interface NavbarProps {
-  currentPath?: string;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
+const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { t } = useI18n();
 
@@ -47,11 +45,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
                 key={link.name}
                 href={link.path}
                 className={`text-[var(--foreground)] hover:text-[var(--primary)] px-3 py-2 text-sm font-medium ${
-                  currentPath === link.path
+                  pathname === link.path
                     ? "border-b-2 border-[var(--primary)]"
                     : ""
                 }`}
-                aria-current={currentPath === link.path ? "page" : undefined}
+                aria-current={pathname === link.path ? "page" : undefined}
               >
                 {link.name}
               </Link>
@@ -63,7 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
             <LanguageSwitcher />
             <button
               onClick={() => (window.location.href = "/signin")}
-              className="text-[var(--foreground)] border border-gray-300 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium"
+              className="text-[var(--foreground)] border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 rounded-md text-sm font-medium transition-colors"
               aria-label={t("nav.signIn")}
             >
               {t("nav.signIn")}
@@ -146,9 +144,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
                 href={link.path}
                 onClick={() => setIsMenuOpen(false)}
                 className={`text-[var(--foreground)] hover:text-[var(--primary)] block px-3 py-2 rounded-md text-base font-medium ${
-                  currentPath === link.path ? "bg-gray-100" : ""
+                  pathname === link.path ? "bg-gray-100 dark:bg-gray-800" : ""
                 }`}
-                aria-current={currentPath === link.path ? "page" : undefined}
+                aria-current={pathname === link.path ? "page" : undefined}
               >
                 {link.name}
               </Link>
@@ -158,7 +156,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
                 window.location.href = "/signin";
                 setIsMenuOpen(false);
               }}
-              className="text-[var(--foreground)] border border-gray-300 hover:bg-gray-100 w-full text-left px-3 py-2 rounded-md text-base font-medium"
+              className="text-[var(--foreground)] border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors"
               aria-label={t("nav.signIn")}
             >
               {t("nav.signIn")}

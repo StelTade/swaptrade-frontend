@@ -25,7 +25,7 @@ export default function BonusPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-[family-name:var(--font-geist-sans)]">
-      <Navbar currentPath="/dashboard/bonuses" />
+      <Navbar />
       <BonusDashboard userId={userId} />
     </div>
   );

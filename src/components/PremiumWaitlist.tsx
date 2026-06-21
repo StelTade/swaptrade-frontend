@@ -257,6 +257,7 @@ export default function PremiumWaitlist({
     }
   };
 
+  // Render the correct mode
   if (compact) {
     return (
       <div className="w-full max-w-md mx-auto">
@@ -335,8 +336,10 @@ export default function PremiumWaitlist({
     );
   }
 
+  // If we get here, render full mode
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+    <>
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
       {/* Hero Section */}
       <div className="max-w-6xl mx-auto px-4 py-20 sm:py-32">
         <div className="text-center mb-16">
@@ -599,7 +602,8 @@ export default function PremiumWaitlist({
         </div>
       </div>
     </div>
-    <CryptoSignalsBanner />
+      <CryptoSignalsBanner />
+    </>
   );
 }
 
