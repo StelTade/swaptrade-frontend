@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <Navbar currentPath="/dashboard" />
+      <Navbar />
       <ReferralDashboard userId={userId} />
     </div>
   );

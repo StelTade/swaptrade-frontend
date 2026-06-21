@@ -112,6 +112,25 @@ function initDb(database: Db) {
 
     CREATE UNIQUE INDEX IF NOT EXISTS idx_referrals_referred_id ON referrals(referred_id);
     CREATE INDEX IF NOT EXISTS idx_referral_codes_referrer_id ON referral_codes(referrer_id);
+
+    CREATE TABLE IF NOT EXISTS premium_spot_config (
+      id INTEGER PRIMARY KEY,
+      total_spots INTEGER NOT NULL,
+      spots_taken INTEGER NOT NULL DEFAULT 0,
+      price_increase_at INTEGER,
+      updated_at INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS spot_reservations (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      email TEXT NOT NULL,
+      expires_at INTEGER,
+      confirmed_at INTEGER,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
     CREATE INDEX IF NOT EXISTS idx_spot_reservations_expires_at ON spot_reservations(expires_at);
   `);
 

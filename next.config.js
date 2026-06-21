@@ -5,8 +5,6 @@ const nextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.optimization.usedExports = true;
-      config.optimization.sideEffects = false;
       config.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {

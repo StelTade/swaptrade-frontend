@@ -1,6 +1,19 @@
 {
+  "name": "swaptrade-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "node node_modules/jest/bin/jest.js --config jest.config.js",
+    "test:coverage": "node node_modules/jest/bin/jest.js --config jest.config.js --coverage",
+    "test:e2e": "node node_modules/@playwright/test/cli.js test"
+  },
   "dependencies": {
-    "stripe": "^22.2.2"
+    "stripe": "^22.2.2",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

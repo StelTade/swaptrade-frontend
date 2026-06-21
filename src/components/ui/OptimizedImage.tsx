@@ -2,17 +2,22 @@ import Image, { ImageProps } from 'next/image'
 
 export default function OptimizedImage({
   quality = 75,
-  loading = 'lazy',
+  loading,
   sizes = '(max-width: 768px) 100vw, 50vw',
   alt = '',
+  priority,
   ...props
 }: ImageProps) {
+  // If priority is set, don't use lazy loading - they conflict in Next.js
+  const finalLoading = priority ? undefined : (loading || 'lazy');
+  
   return (
     <Image
-      loading={loading}
+      loading={finalLoading}
       quality={quality}
       sizes={sizes}
       alt={alt}
+      priority={priority}
       {...props}
     />
   )

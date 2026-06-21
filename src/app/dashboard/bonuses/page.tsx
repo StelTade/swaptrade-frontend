@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import BonusDashboard from "@/components/BonusDashboard";
 import Navbar from "@/components/Navbar";
 
+export const dynamic = 'force-dynamic';
+
 export default function BonusPage() {
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
@@ -25,7 +27,7 @@ export default function BonusPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-[family-name:var(--font-geist-sans)]">
-      <Navbar currentPath="/dashboard/bonuses" />
+      <Navbar />
       <BonusDashboard userId={userId} />
     </div>
   );

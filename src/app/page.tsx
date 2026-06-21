@@ -3,9 +3,11 @@
 import Hero from '@/components/Hero';
 import Navbar from '@/components/Navbar';
 import SocialProofSection from '@/components/SocialProofSection';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 
-const Leaderboard = dynamic(() => import('@/components/Leaderboard'), {
+export const dynamic = 'force-dynamic';
+
+const Leaderboard = dynamicImport(() => import('@/components/Leaderboard'), {
   loading: () => (
     <div className="w-full max-w-2xl mx-auto px-4 py-8">
       <div className="space-y-3">
@@ -21,7 +23,7 @@ const Leaderboard = dynamic(() => import('@/components/Leaderboard'), {
   ssr: false,
 });
 
-const AdvancedChart = dynamic(() => import('@/components/AdvancedChart'), {
+const AdvancedChart = dynamicImport(() => import('@/components/AdvancedChart'), {
   loading: () => (
     <div className="w-full max-w-6xl mx-auto px-4 py-10">
       <div className="rounded-3xl border border-gray-200 bg-white/90 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-950/80">
