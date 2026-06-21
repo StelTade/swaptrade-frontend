@@ -8,7 +8,7 @@ export default function ServiceWorkerRegistration() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return;
+    if (typeof window === 'undefined' || !navigator.serviceWorker) return;
 
     // Register service worker
     navigator.serviceWorker
