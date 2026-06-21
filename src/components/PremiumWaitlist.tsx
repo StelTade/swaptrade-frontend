@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import CryptoSignalsBanner from '@/components/CryptoSignalsBanner';
 
 interface PremiumBenefit {
   icon: string;
@@ -598,6 +599,7 @@ export default function PremiumWaitlist({
         </div>
       </div>
     </div>
+    <CryptoSignalsBanner />
   );
 }
 
