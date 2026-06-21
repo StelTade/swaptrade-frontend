@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import BonusDashboard from "@/components/BonusDashboard";
 import Navbar from "@/components/Navbar";
 
+export const dynamic = 'force-dynamic';
+
 export default function BonusPage() {
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
