@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
   isNotificationSupported,
   isPushSupported,
@@ -9,6 +13,10 @@ import type { NotificationPreferences } from '@/lib/notifications';
 
 describe('Notifications Service', () => {
   beforeEach(() => {
+    Object.defineProperty(global, 'Notification', {
+      value: { permission: 'default' },
+      configurable: true,
+    });
     localStorage.clear();
     jest.clearAllMocks();
   });

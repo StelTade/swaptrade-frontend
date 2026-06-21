@@ -5,6 +5,7 @@ import { useTheme } from "./context/ThemeContext";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useI18n } from "@/i18n/context";
 import LanguageSwitcher from "./LanguageSwitcher";
+import MarketTickerTape from './shared/MarketTickerTape';
 
 interface NavbarProps {
   currentPath?: string;
@@ -169,6 +170,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentPath = '/' }) => {
           </div>
         </div>
       )}
+
+      {/* Market ticker */}
+      <MarketTickerTape />
     </nav>
   );
 };
